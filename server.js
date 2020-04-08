@@ -1,6 +1,12 @@
 let express = require('express');
 const bodyParser = require("body-parser");
 let server = express();
+let batch = require('./app/batch');
+let invoice = require('./app/invoice');
+let product = require('./app/product');
+let supplier = require('./app/supplier');
+let client = require('./app/client');
+let order = require('./app/order');
 
 server.listen(8888);
 console.log('Server is running on port 8888');
@@ -10,6 +16,14 @@ server.use(express.static(__dirname));
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
 
+batch.initBatch(server, jsonParser);
+client.initClient(server, jsonParser);
+invoice.initInvoice(server, jsonParser);
+order.initOrder(server, jsonParser);
+product.initProduct(server, jsonParser);
+supplier.initSupplier(server, jsonParser);
+
+
 // Database functions - TBD
 //let db = require('./dbexec.js');
 
@@ -17,6 +31,7 @@ const jsonParser = bodyParser.json();
 //Endpoints
 //ROOT
 server.get('/', function(req, res) {
+    //TODO - check token + session 
     res.write("Main page here")
     res.end();
     //res.sendFile(__dirname+"");
@@ -24,13 +39,18 @@ server.get('/', function(req, res) {
 
 //Login
 server.get('/login', function(req, res) {
+    //TODO - check token + session 
     res.write("Login page here")
     res.end();
     //res.sendFile(__dirname+"");
 });
 
+//???????? - login (POST?)
+
 //Admin
 server.get('/admin', function(req, res) {
+    //TODO - check token + session 
+
     res.write("Admin page here")
     res.end();
     //res.sendFile(__dirname+"");
@@ -38,84 +58,12 @@ server.get('/admin', function(req, res) {
 
 //Admin login
 server.get('/admin/login', function(req, res) {
+    //TODO - check token + session 
+
     res.write("Admin login page here")
     res.end();
     //res.sendFile(__dirname+"");
 });
-
-//BATCH
-server.get('/batch', function(req, res) {
-    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-    res.write("Batch with id = " + myid);
-    res.end();
-});
-
-server.get('/batch/:id', function(req, res) {
-    const myid = req.params.id;
-    console.log('id = ' + myid);
-    res.write("Batch with id = " + myid);
-    res.end();
-});
-
-//ORDER
-server.get('/order', function(req, res) {
-    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-    res.write("Order with id = " + myid);
-    res.end();
-});
-
-server.get('/order/:id', function(req, res) {
-    const myid = req.params.id;
-    console.log('id = ' + myid);
-    res.write("Order with id = " + myid);
-    res.end();
-});
-
-//Supplier
-server.get('/supp', function(req, res) {
-    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-    res.write("Supp with id = " + myid);
-    res.end();
-});
-
-server.get('/supp/:id', function(req, res) {
-    const myid = req.params.id;
-    console.log('id = ' + myid);
-    res.write("Supp with id = " + myid);
-    res.end();
-});
-
-
-//Client
-server.get('/client', function(req, res) {
-    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-    res.write("Supp with id = " + myid);
-    res.end();
-});
-
-server.get('/client/:id', function(req, res) {
-    const myid = req.params.id;
-    console.log('id = ' + myid);
-    res.write("Client with id = " + myid);
-    res.end();
-});
-
-
-//Products
-server.get('/prod', function(req, res) {
-    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-    res.write("Prod with id = " + myid);
-    res.end();
-});
-
-server.get('/prod/:id', function(req, res) {
-    const myid = req.params.id;
-    console.log('id = ' + myid);
-    res.write("Prod with id = " + myid);
-    res.end();
-});
-
-
 
 /*
 

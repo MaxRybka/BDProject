@@ -17,38 +17,103 @@ const jsonParser = bodyParser.json();
 //Endpoints
 //ROOT
 server.get('/', function(req, res) {
-    res.write("Miaoo!")
+    res.write("Main page here")
     res.end();
     //res.sendFile(__dirname+"");
 });
 
+//Login
+server.get('/login', function(req, res) {
+    res.write("Login page here")
+    res.end();
+    //res.sendFile(__dirname+"");
+});
 
-//
+//Admin
+server.get('/admin', function(req, res) {
+    res.write("Admin page here")
+    res.end();
+    //res.sendFile(__dirname+"");
+});
 
+//Admin login
+server.get('/admin/login', function(req, res) {
+    res.write("Admin login page here")
+    res.end();
+    //res.sendFile(__dirname+"");
+});
 
-server.get('/user/:id', function(req, res) {
+//BATCH
+server.get('/batch', function(req, res) {
+    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+    res.write("Batch with id = " + myid);
+    res.end();
+});
+
+server.get('/batch/:id', function(req, res) {
     const myid = req.params.id;
     console.log('id = ' + myid);
-    res.write("Got user with id = " + myid);
+    res.write("Batch with id = " + myid);
+    res.end();
+});
+
+//ORDER
+server.get('/order', function(req, res) {
+    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+    res.write("Order with id = " + myid);
+    res.end();
+});
+
+server.get('/order/:id', function(req, res) {
+    const myid = req.params.id;
+    console.log('id = ' + myid);
+    res.write("Order with id = " + myid);
+    res.end();
+});
+
+//Supplier
+server.get('/supp', function(req, res) {
+    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+    res.write("Supp with id = " + myid);
+    res.end();
+});
+
+server.get('/supp/:id', function(req, res) {
+    const myid = req.params.id;
+    console.log('id = ' + myid);
+    res.write("Supp with id = " + myid);
     res.end();
 });
 
 
+//Client
+server.get('/client', function(req, res) {
+    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+    res.write("Supp with id = " + myid);
+    res.end();
+});
+
+server.get('/client/:id', function(req, res) {
+    const myid = req.params.id;
+    console.log('id = ' + myid);
+    res.write("Client with id = " + myid);
+    res.end();
+});
 
 
+//Products
+server.get('/prod', function(req, res) {
+    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+    res.write("Prod with id = " + myid);
+    res.end();
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
+server.get('/prod/:id', function(req, res) {
+    const myid = req.params.id;
+    console.log('id = ' + myid);
+    res.write("Prod with id = " + myid);
+    res.end();
+});
 
 
 

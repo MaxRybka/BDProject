@@ -1,4 +1,4 @@
-import './scss/main.scss'
+ import './scss/main.scss'
 
-console.log('Hello!');
-console.log(`The time is ${new Date()}`);
+ console.log('Hello!');
+ console.log(`The time is ${new Date()}`);

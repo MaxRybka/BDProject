@@ -36,14 +36,16 @@ manuf.initManuf(server, jsonParser);
 //ROOT
 server.get('/', function(req, res) {
     //TODO - check token + session 
-    res.write("Main page here")
-    res.end();
-    //res.sendFile(__dirname+"");
+    //res.write("Main page here")
+    console.log("main");
+    res.sendFile(__dirname+"/docs/index.html");
+    
 });
 
 //Login
 server.get('/login', function(req, res) {
     //TODO - check token + session 
+
     res.write("Login page here")
     res.end();
     //res.sendFile(__dirname+"");

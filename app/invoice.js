@@ -1,3 +1,5 @@
+let invDao = require('./storage/invStorage');
+
 module.exports = { initInvoice }
 
 function initInvoice(app, jsonParser) {
@@ -5,8 +7,28 @@ function initInvoice(app, jsonParser) {
     app.get('/inv', function(req, res) {
         //TODO - check token + session 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write("Invoice with id = " + myid);
-        res.end();
+
+        invDao.getAllInvoices().then((data) => {
+            let dataArr = data[0];
+            let resArr = [];
+
+            for (let inv of dataArr) {
+                resArr.push({
+                    id : inv.inv_id,
+                    date : inv.inv_date,
+                    total_price : inv.inv_total,
+                    notes : inv.inv_notes,
+                    sup_id : inv.sup_edrpou,
+                    sup_name : inv.sup_name
+                });
+            }
+            res.write(JSON.stringify(resArr));
+            res.end();
+        }).catch(err => {
+            res.write(err);
+            res.end();
+        });
+        
     });
 
     app.get('/inv/:id', function(req, res) {

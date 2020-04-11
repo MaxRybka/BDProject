@@ -12,6 +12,7 @@ function initProduct(app, jsonParser) {
                 let resArr = [];
                 for (let prod of dataArr) {
                     let resCatArr = [];
+
                     catDao.getCategoriesByProdCd(prod.prod_cd).then((data_cat) => {
                         let dataCatArr = data_cat[0];
                         for (let cat of dataCatArr) {
@@ -27,6 +28,7 @@ function initProduct(app, jsonParser) {
                         catErr.end();
                     }); //return to user
 
+                    //TODO: add notes
                     resArr.push({
                         cd: prod.prod_cd,
                         name: prod.prod_name,

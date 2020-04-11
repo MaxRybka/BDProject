@@ -1,12 +1,43 @@
+let prodDao = require('./storage/prodStorage');
+let catDao = require('./storage/categoryStorage');
+
 module.exports = { initProduct }
 
 function initProduct(app, jsonParser) {
     //Products
     app.get('/prod', function(req, res) {
-        //TODO - check token + session 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write("Prod with id = " + myid);
-        res.end();
+        prodDao.getAllProducts().then((data) => {
+                let dataArr = data[0];
+                let resArr = [];
+                for (let prod of dataArr) {
+                    let resCatArr = [];
+                    catDao.getCategoriesByProdCd(prod.prod_cd).then((data_cat) => {
+                        let dataCatArr = data_cat[0];
+                        for (let cat of dataCatArr) {
+                            resCatArr.push({
+                                //parse 
+                            });
+                        }
+                    }).catch(catErr) { console.log(catErr) }; //return to user
+                    resArr.push({
+                        cd: prod.prod_cd,
+                        name: prod.prod_name,
+                        unit: prod.prod_unit,
+                        total_am: prod.prod_total_am,
+                        man_id: prod.man_id,
+                        man_name: prod.man_name
+                    });
+                }
+
+                //TODO - связать каждый товар с массивом
+                res.write(JSON.stringify(resArr));
+                res.end();
+            })
+            .catch(err => {
+                res.write(err);
+                res.end();
+            });
     });
 
     app.get('/prod/:id', function(req, res) {

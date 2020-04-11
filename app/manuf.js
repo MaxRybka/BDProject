@@ -1,8 +1,8 @@
 const manufDao = require('./storage/manufStorage');
 module.exports = { initManuf }
 
+//Manufacturer    
 function initManuf(app, jsonParser) {
-    //Manufacturer
     app.get('/manuf', function(req, res) {
         //TODO - check token + session 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });

@@ -21,7 +21,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
     	<div class="col-md-4 mt-2 mt-md-0">
-    		<button id ="addProd" type="button" class="add btn btn-primary" data-toggle="modal" data-target="#addprodmodal">
+    		<button id ="addProd" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
  				Add product
 			</button>
     	</div>
@@ -40,7 +40,7 @@
   </nav>
 
 
-  <div class="modal fade" id="addprodmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -72,97 +72,9 @@
 		</div>
   		<label for="notes">Notes</label>
   		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
-	</div>     
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
- <div class="modal fade" id="addsupmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add supplier</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <label for="article">Article</label>
-  		<input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
-  		<label for="name">Title</label>
-  		<input type="text" class="form-control" id="name" aria-describedby="basic-addon3">
-  		<label for="unit">Unit</label>
-  		<select id ="unit" class="custom-select units">
-  			<option selected value="m">meters</option>
-  			<option value="kg">kilograms</option>
-  			<option value="p">piece</option>
-		</select>
-		<div>
-			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" style="width: 300px;">
-    		</select>
-		</div>
-		<div>
-			<label >Choose manufacturer  </label>
-    		<select id="manufecturers-add" multiple="multiple">
-   			</select>
-		</div>
-  		<label for="notes">Notes</label>
-  		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
 	</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
-  <div class="modal fade" id="addinvmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add invoice</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <label for="article">Code</label>
-  		<input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
-  		
-  		<label for="example-date-input" class="col-2 col-form-label">Date</label>
-  		<div class="col-10">
-    		<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-  		</div>
-
-  		<label for="unit">Unit</label>
-  		<select id ="unit" class="custom-select units">
-  			<option selected value="m">meters</option>
-  			<option value="kg">kilograms</option>
-  			<option value="p">piece</option>
-		</select>
-		<div>
-			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" style="width: 300px;">
-    		</select>
-		</div>
-		<div>
-			<label >Choose manufacturer  </label>
-    		<select id="manufecturers-add" multiple="multiple">
-   			</select>
-		</div>
-  		<label for="notes">Notes</label>
-  		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
-	</div>
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -172,68 +84,6 @@
     </div>
   </div>
 </div>
-
- <div class="modal fade" id="addordmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add order</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <label for="article">Code</label>
-  		<input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
-  		
-  		<label for="example-date-input" class="col-2 col-form-label">Date</label>
-  		<div class="col-10">
-    		<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-  		</div>
-
-  		<label for="unit">Unit</label>
-  		<select id ="unit" class="custom-select units">
-  			<option selected value="m">meters</option>
-  			<option value="kg">kilograms</option>
-  			<option value="p">piece</option>
-		</select>
-		<div>
-			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" style="width: 300px;">
-    		</select>
-		</div>
-		<div>
-			<label >Choose manufacturer  </label>
-    		<select id="manufecturers-add" multiple="multiple">
-   			</select>
-		</div>
-  		<label for="notes">Notes</label>
-  		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
-	</div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="cointeiner mycontainer" style="margin-top: 50px;">
 	<div class="row">
 		<nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -247,25 +97,19 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="orders" href="#">
+            <a class="nav-link" href="#">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
               Orders
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="invoices" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-              invoices
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="suppliers" href="#">
+            <a class="nav-link" href="#">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               Suppliers
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="customers" href="#">
+            <a class="nav-link" href="#">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               Customers
             </a>

@@ -17,16 +17,24 @@ function initProduct(app, jsonParser) {
                         for (let cat of dataCatArr) {
                             resCatArr.push({
                                 //parse 
+                                id : cat.cat_id,
+                                name : cat.cat_name
                             });
-                        }
-                    }).catch(catErr) { console.log(catErr) }; //return to user
+                        }                    
+                        
+                    }).catch(catErr => {
+                        catErr.write(catErr);
+                        catErr.end();
+                    }); //return to user
+
                     resArr.push({
                         cd: prod.prod_cd,
                         name: prod.prod_name,
                         unit: prod.prod_unit,
                         total_am: prod.prod_total_am,
                         man_id: prod.man_id,
-                        man_name: prod.man_name
+                        man_name: prod.man_name,
+                        cat: resCatArr
                     });
                 }
 

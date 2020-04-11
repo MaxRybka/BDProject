@@ -1,3 +1,6 @@
+let dbexec = require('./app/storage/dbexec');
+//dbexec.initPool();
+
 let express = require('express');
 const bodyParser = require("body-parser");
 let server = express();
@@ -7,6 +10,7 @@ let product = require('./app/product');
 let supplier = require('./app/supplier');
 let client = require('./app/client');
 let order = require('./app/order');
+let manuf = require('./app/manuf');
 
 server.listen(8888);
 console.log('Server is running on port 8888');
@@ -22,7 +26,7 @@ invoice.initInvoice(server, jsonParser);
 order.initOrder(server, jsonParser);
 product.initProduct(server, jsonParser);
 supplier.initSupplier(server, jsonParser);
-
+manuf.initManuf(server, jsonParser);
 
 // Database functions - TBD
 //let db = require('./dbexec.js');
@@ -64,32 +68,3 @@ server.get('/admin/login', function(req, res) {
     res.end();
     //res.sendFile(__dirname+"");
 });
-
-/*
-
-
-
-const mysql = require("mysql2");
-
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "mydb",
-    password: "admin"
-});
-
-// тестирование подключения
-connection.connect(function(err) {
-    if (err) {
-        return console.error("Ошибка: " + err.message);
-    } else {
-        console.log("Подключение к серверу MySQL успешно установлено");
-    }
-});
-// закрытие подключения
-connection.end(function(err) {
-    if (err) {
-        return console.log("Ошибка: " + err.message);
-    }
-    console.log("Подключение закрыто");
-});*/

@@ -5,14 +5,24 @@ function initManuf(app, jsonParser) {
     //Manufacturer
     app.get('/manuf', function(req, res) {
         //TODO - check token + session 
-        manufDao.getAllManuf().then((data) => {
-                let info = data[0];
-                console.log(info);
-            })
-            .catch(err => console.log(err));
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write("Manufacturers");
-        res.end();
+        manufDao.getAllManuf().then((data) => {
+                let dataArr = data[0];
+                let resArr = [];
+                for (let man of dataArr) {
+                    resArr.push({
+                        man_id: man.man_id,
+                        man_name: man.man_name,
+                        man_phone: man.man_phone
+                    });
+                }
+                res.write(JSON.stringify(resArr));
+                res.end();
+            })
+            .catch(err => {
+                res.write(err);
+                res.end();
+            });
     });
 
     app.get('/manuf/:id', function(req, res) {

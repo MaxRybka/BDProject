@@ -5,7 +5,11 @@ function initManuf(app, jsonParser) {
     //Manufacturer
     app.get('/manuf', function(req, res) {
         //TODO - check token + session 
-        manufDao.test();
+        manufDao.getAllManuf().then((data) => {
+                let info = data[0];
+                console.log(info);
+            })
+            .catch(err => console.log(err));
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         res.write("Manufacturers");
         res.end();

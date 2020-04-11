@@ -6,6 +6,7 @@ module.exports = { initProduct }
 function initProduct(app, jsonParser) {
     //Products
     app.get('/prod', function(req, res) {
+        console.log("prod");
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         prodDao.getAllProducts().then((data) => {
                 let dataArr = data[0];

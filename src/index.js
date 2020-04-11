@@ -2,7 +2,7 @@ import './scss/main.scss'
 import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
-let uri=""
+let uri="http://localhost:8888";
 
 let _makeProduct = require('./modules/product1-html');
 
@@ -13,7 +13,7 @@ function clearProducts(){
 function createAllProducts(){
 	
 	jQuery.ajax({
-	url: 'https://nit.tron.net.ua/api/product/list',
+	url: uri+"/prod",
 	method: 'get',
  	dataType: 'json',
  	success: function(json){
@@ -102,6 +102,7 @@ $(document).on('click','#invoices',function(){
 // });
 });
 
+let _makesupplier= require('./modules/supplier-html');
 $(document).on('click','#suppliers',function(){
 	console.log("suppliers");
 	$('.product-grid').empty();
@@ -112,12 +113,12 @@ $(document).on('click','#suppliers',function(){
 		<th >name</th><th>Phone</th><th>Email</th><th>Country</th><th>Region</th><th>City</th><th>Street</th><th>Account</th><th>Notes</th></tr></thead><tbody id="invtable"></tbody> </table>`);
 	$('.product-grid').append($table);
 //   	jQuery.ajax({
-// 	url: uri+'/inv',
+// 	url: uri+'/supp',
 // 	method: 'get',
 //  	dataType: 'json',
 //  	success: function(json){
 // 		console.table(json);
-//  		json.forEach(invoice => $('#invtable').append(_makeinvoice(invoice)));
+//  		json.forEach(supplier => $('#invtable').append(_makeinvoice(supplier)));
 // 	},
 // 	error: function(xhr){
 // 		alert("An error occured: " + xhr.status + " " + xhr.statusText);

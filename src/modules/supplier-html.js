@@ -1,18 +1,35 @@
 let _makeHtml = ({
 	id,
-	date,
-	price,
-	notes,
-	sup_id,
-	suo_name
+	itn,
+	name,
+	phone,
+	email,
+	country,
+	region,
+	city,
+	street,
+	building,
+	acc,
+	notes
 }) => {
-	let $product = $(`<tr data-invoice-id="${id}" data-date="${date}" data-price="${price}"	data-notes="${notes}" data-sup_name="${sup_name}" data-sup_id="${sup_id}">
+	let $product = $(`<tr data-supplier-id="${id}"data-supplier-itn="${itn}" 
+		data-supplier-name="${name}" data-supplier-phone="${phone}" 
+		data-supplier-email="${email}" data-supplier-country="${country}"
+		data-supplier-email="${region}" data-supplier-country="${city}"
+		data-supplier-email="${street}" data-supplier-country="${building}"
+		data-supplier-email="${acc}" data-supplier-country="${notes}">
       <th scope="row" >${id}</th>
-      <td>${date}</td>
-      <td>${price}</td>
+      <td>${itn}</td>
+      <td>${name}</td>
+      <td>${phone}</td>
+      <td>${email}</td>
+      <td>${country}</td>
+      <td>${region}</td>
+      <td>${city}</td>
+      <td>${street}, ${building}</td>
+      <td>${acc}</td>
       <td>${notes}</td>
-      <td><a href="#" id="class="badge badge-light">${suo_name}</a></td>
-      <td> <button type="button" id ="delinvbtn" class="btn btn-outline-danger">Delete</button></td>
+      <td> <button type="button" id ="delsupbtn" class="btn btn-outline-danger">Delete</button></td>
     </tr>`);
 	return $product;
 };

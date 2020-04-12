@@ -10,18 +10,13 @@ function initSupplier(app, jsonParser) {
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
 
         suppDao.getAllSuppliers().then((data) => {
-            console.log(data[0]);
             let dataToSend = JSON.stringify(data[0]);
-            console.log("serdelka");
-
             res.write(dataToSend);
             res.end();
         }).catch(err => {
             res.write(err.stack);
             res.end();
         });
-
-        console.log("sosiska");
     });
 
     //Get all supplier invoices

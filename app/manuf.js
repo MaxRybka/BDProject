@@ -7,16 +7,8 @@ function initManuf(app, jsonParser) {
         //TODO - check token + session 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         manufDao.getAllManuf().then((data) => {
-                let dataArr = data[0];
-                let resArr = [];
-                for (let man of dataArr) {
-                    resArr.push({
-                        man_id: man.man_id,
-                        man_name: man.man_name,
-                        man_phone: man.man_phone
-                    });
-                }
-                res.write(JSON.stringify(resArr));
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
                 res.end();
             })
             .catch(err => {

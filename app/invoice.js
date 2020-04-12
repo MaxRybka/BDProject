@@ -9,23 +9,11 @@ function initInvoice(app, jsonParser) {
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
 
         invDao.getAllInvoices().then((data) => {
-            let dataArr = data[0];
-            let resArr = [];
-
-            for (let inv of dataArr) {
-                resArr.push({
-                    id : inv.inv_id,
-                    date : inv.inv_date,
-                    total_price : inv.inv_total,
-                    notes : inv.inv_notes,
-                    sup_id : inv.sup_edrpou,
-                    sup_name : inv.sup_name
-                });
-            }
-            res.write(JSON.stringify(resArr));
+            let dataToSend= JSON.stringify(data[0]);
+            res.write(dataToSend);
             res.end();
         }).catch(err => {
-            res.write(err);
+            res.write(err.stack);
             res.end();
         });
         

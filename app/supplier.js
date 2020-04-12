@@ -11,7 +11,6 @@ function initSupplier(app, jsonParser) {
 
         suppDao.getAllSuppliers().then((data) => {
             let dataToSend = JSON.stringify(data[0]);
-
             res.write(dataToSend);
             res.end();
         }).catch(err => {

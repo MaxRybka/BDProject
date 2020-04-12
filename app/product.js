@@ -9,44 +9,27 @@ function initProduct(app, jsonParser) {
         console.log("prod");
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         prodDao.getAllProducts().then((data) => {
-                let dataArr = data[0];
-                let resArr = [];
-                for (let prod of dataArr) {
-                    let resCatArr = [];
-
-                    catDao.getCategoriesByProdCd(prod.prod_cd).then((data_cat) => {
-                        let dataCatArr = data_cat[0];
-                        for (let cat of dataCatArr) {
-                            resCatArr.push({
-                                //parse 
-                                id : cat.cat_id,
-                                name : cat.cat_name
-                            });
-                        }                    
-                        
-                    }).catch(catErr => {
-                        catErr.write(catErr);
-                        catErr.end();
-                    }); //return to user
-
-                    //TODO: add notes
-                    resArr.push({
-                        cd: prod.prod_cd,
-                        name: prod.prod_name,
-                        unit: prod.prod_unit,
-                        total_am: prod.prod_total_am,
-                        man_id: prod.man_id,
-                        man_name: prod.man_name,
-                        cat: resCatArr
-                    });
-                }
-
-                //TODO - связать каждый товар с массивом
-                res.write(JSON.stringify(resArr));
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
                 res.end();
             })
             .catch(err => {
-                res.write(err);
+                res.write(err.stack);
+                res.end();
+            });
+    });
+
+    //Get all categories of product
+    app.get('/prodcat/:id', function(req, res) {
+        console.log("prod");
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+        prodDao.getProductCategories(req.params.id).then((data) => {
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
                 res.end();
             });
     });

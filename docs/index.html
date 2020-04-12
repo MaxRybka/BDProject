@@ -21,7 +21,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
     	<div class="col-md-4 mt-2 mt-md-0">
-    		<button id ="addProd" type="button" class="add btn btn-primary" data-toggle="modal" data-target="#addprodmodal">
+    		<button id ="addProd" type="button" class="add btn btn-primary" data-supplier-id=""
+        data-toggle="modal" data-target="#addprodmodal">
  				Add product
 			</button>
     	</div>
@@ -105,7 +106,7 @@
 		</select>
 		<div>
 			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" style="width: 300px;">
+  			<select id="categories-add" multiple="multiple" style="width:300px;">
     		</select>
 		</div>
 		<div>
@@ -135,35 +136,36 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-      <label for="article">Code</label>
-  		<input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
-  		
-  		<label for="example-date-input" class="col-2 col-form-label">Date</label>
-  		<div class="col-10">
-    		<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-  		</div>
-
-  		<label for="unit">Unit</label>
-  		<select id ="unit" class="custom-select units">
-  			<option selected value="m">meters</option>
-  			<option value="kg">kilograms</option>
-  			<option value="p">piece</option>
-		</select>
-		<div>
-			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" style="width: 300px;">
-    		</select>
-		</div>
-		<div>
-			<label >Choose manufacturer  </label>
-    		<select id="manufecturers-add" multiple="multiple">
-   			</select>
-		</div>
-  		<label for="notes">Notes</label>
-  		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
-	</div>
-      
+    <div class="modal-body">
+            <label for="article">Code</label>
+            <input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
+            
+            <label for="example-date-input">Date</label>
+            <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+            
+            <label for="notes">Notes</label>
+            <textarea id="notes" class="form-control" aria-label="With textarea"></textarea>
+            <div class="row addrow">
+            <select id="invprod" class="custom-select units col-md-4 marg10">
+              <option selected="" value="m">meters</option>
+            </select>
+            <input type="text" class="form-control col-md-4 marg10" id="ordamount" aria-describedby="basic-addon2">
+            <button id ="addprodinvtable"type="button" class="btn btn-outline-success butmar">Add</button>
+            </div>
+    <div class="col-md-12"></div>
+            <table class="table" id="prodinvtable">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Extra</th>
+                  </tr>
+                </thead>
+                <tbody>                
+                </tbody>
+              </table>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" id="addpost" class="btn btn-primary">Add</button>
@@ -240,33 +242,35 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
          
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+          <li class="nav-item navmarg">
+            <a class="nav-link navtext" id="products" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
               Products
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="orders" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+
+          <li class="nav-item navmarg">
+            <a class="nav-link navtext" id="orders" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
               Orders
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="invoices" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-              invoices
+          <li class="nav-item navmarg">
+            <a class="nav-link navtext" id="invoices" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+              Invoices
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="suppliers" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+           <li class="nav-item navmarg">
+            <a class="nav-link navtext" id="suppliers" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               Suppliers
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="customers" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+
+          <li class="nav-item navmarg">
+            <a class="nav-link navtext" id="customers" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               Customers
             </a>
           </li>
@@ -277,7 +281,7 @@
 
 
 	
-	<main class="row product-grid col-md-9">
+	<main class="row product-grid col-md-10">
   	</main>
 
 

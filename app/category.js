@@ -5,7 +5,6 @@ function initCategory(app, jsonParser) {
     //Category
     app.get('/category', function(req, res) {
         //TODO - check token + session 
-
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         res.write("Categories");
         res.end();
@@ -45,7 +44,6 @@ function initCategory(app, jsonParser) {
         res.end();
     });
 
-
     app.delete('/category/:id', async function(req, res) {
         //TODO - check token + session 
         const id = req.params.id;
@@ -54,5 +52,4 @@ function initCategory(app, jsonParser) {
         res.write('Deleted category');
         res.end();
     });
-
 }

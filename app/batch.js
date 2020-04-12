@@ -1,3 +1,4 @@
+const batchDao = require('./storage/batchStorage');
 module.exports = { initBatch }
 
 function initBatch(app, jsonParser) {
@@ -8,6 +9,20 @@ function initBatch(app, jsonParser) {
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         res.write("Batch with id = " + myid);
         res.end();
+    });
+
+    app.get('/batchinv/:id', function(req, res) {
+        let invId = req.params.id;
+        //TODO - check token + session 
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+        batchDao.getBatchesByInvoiceId(invId).then((data) => {
+            let dataToSend = JSON.stringify(data[0]);
+            res.write(dataToSend);
+            res.end();
+        }).catch(err => {
+            res.write(err.stack);
+            res.end();
+        });
     });
 
     app.get('/batch/:id', function(req, res) {

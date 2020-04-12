@@ -1,6 +1,7 @@
-module.exports = { initBatch }
+const catDao = require('./storage/categoryStorage');
+module.exports = { initCategory }
 
-function initBatch(app, jsonParser) {
+function initCategory(app, jsonParser) {
     //Category
     app.get('/category', function(req, res) {
         //TODO - check token + session 
@@ -20,11 +21,18 @@ function initBatch(app, jsonParser) {
 
     app.post('/category', jsonParser, async function(req, res) {
         //TODO - check token + session 
-        let data = req.body;
+        let catName = req.body.cat_name;
+        let catNotes = (req.body.cat_notes === undefined) ? null : req.body.cat_notes;
         //TODO - db add new batch with data
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('Added new category');
-        res.end();
+        catDao.insertNewCategory(catName, catNotes).then((data) => {
+            let dataToSend = JSON.stringify(data[0]);
+            res.write(dataToSend);
+            res.end();
+        }).catch(err => {
+            res.write(err.stack);
+            res.end();
+        });
     });
 
     app.put('/category/:id', jsonParser, async function(req, res) {

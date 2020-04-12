@@ -3,7 +3,17 @@ const db = require('./dbexec');
 async function getCategoriesByProdCd(cd) {
     // получение объектов
     const conn = await db.connection();
-    return results = conn.query(`SELECT category.cat_id, category.cat_name FROM belongs_to INNER JOIN category ON (category.cat_id = belongs_to.cat_id) WHERE belongs_to.prod_cd = ${cd}`);
+    return conn.query(`SELECT category.cat_id, category.cat_name FROM belongs_to INNER JOIN category ON (category.cat_id = belongs_to.cat_id) WHERE belongs_to.prod_cd = ${cd}`);
 }
 
-module.exports = { getCategoriesByProdCd };
+//cat_notes can be null
+async function insertNewCategory(cat_name, cat_notes) {
+    const conn = await db.connection();
+    const sql = "INSERT INTO category (cat_name, cat_notes) VALUES(?, ?)";
+    const data = [cat_name, cat_notes];
+    let res = await conn.query(sql, data);
+    conn.release();
+    return res;
+}
+
+module.exports = { getCategoriesByProdCd, insertNewCategory };

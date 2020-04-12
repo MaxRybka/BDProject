@@ -7,10 +7,11 @@ function initBatch(app, jsonParser) {
         //TODO - check token + session 
 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write("Batch with id = " + myid);
+        res.write("All batches here");
         res.end();
     });
 
+    //
     app.get('/batchinv/:id', function(req, res) {
         let invId = req.params.id;
         //TODO - check token + session 

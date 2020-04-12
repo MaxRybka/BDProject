@@ -8,7 +8,7 @@ let batch = require('./app/batch');
 let invoice = require('./app/invoice');
 let product = require('./app/product');
 let supplier = require('./app/supplier');
-let client = require('./app/client');
+let customer = require('./app/customer');
 let order = require('./app/order');
 let manuf = require('./app/manuf');
 
@@ -21,7 +21,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jsonParser = bodyParser.json();
 
 batch.initBatch(server, jsonParser);
-client.initClient(server, jsonParser);
+customer.initCustomer(server, jsonParser);
 invoice.initInvoice(server, jsonParser);
 order.initOrder(server, jsonParser);
 product.initProduct(server, jsonParser);

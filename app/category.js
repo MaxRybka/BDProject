@@ -25,8 +25,8 @@ function initCategory(app, jsonParser) {
         //TODO - db add new batch with data
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         catDao.insertNewCategory(catName, catNotes).then((data) => {
-            let dataToSend = JSON.stringify(data[0]);
-            res.write(dataToSend);
+            //let dataToSend = JSON.stringify(data[0]);
+            //res.write(dataToSend);
             res.end();
         }).catch(err => {
             res.write(err.stack);

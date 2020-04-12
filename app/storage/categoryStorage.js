@@ -19,4 +19,14 @@ async function insertNewCategory(cat_name, cat_notes) {
     return res;
 }
 
-module.exports = { getCategoriesByProdCd, insertNewCategory };
+
+async function deleteCategoryById(catId) {
+    const conn = await db.connection();
+    const sql = "DELETE FROM category WHERE cat_id = ?";
+    const data = [cat_id];
+    let res = await conn.query(sql, data);
+    conn.release();
+    return res;
+}
+
+module.exports = { getCategoriesByProdCd, insertNewCategory, deleteCategoryById };

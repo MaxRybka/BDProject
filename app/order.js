@@ -1,3 +1,4 @@
+const orderDao = require('./storage/orderStorage');
 module.exports = { initOrder }
 
 function initOrder(app, jsonParser) {
@@ -5,16 +6,29 @@ function initOrder(app, jsonParser) {
     app.get('/order', function(req, res) {
         //TODO - check token + session 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write("Order with id = " + myid);
-        res.end();
+        orderDao.getAllOrders().then((data) => {
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
     });
 
     app.get('/order/:id', function(req, res) {
         //TODO - check token + session 
-        const myid = req.params.id;
-        console.log('id = ' + myid);
-        res.write("Order with id = " + myid);
-        res.end();
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+        orderDao.getOrder(req.params.id).then((data) => {
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
     });
 
     app.post('/order', jsonParser, async function(req, res) {

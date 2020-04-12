@@ -12,17 +12,23 @@ function initManuf(app, jsonParser) {
                 res.end();
             })
             .catch(err => {
-                res.write(err);
+                res.write(err.stack);
                 res.end();
             });
     });
 
     app.get('/manuf/:id', function(req, res) {
         //TODO - check token + session     
-        const myid = req.params.id;
-        console.log('id = ' + myid);
-        res.write("Manufacturer with id = " + myid);
-        res.end();
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+        manufDao.getManuf(req.params.id).then((data) => {
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
     });
 
     app.post('/manuf', jsonParser, async function(req, res) {

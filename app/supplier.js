@@ -9,10 +9,9 @@ function initSupplier(app, jsonParser) {
         //TODO - check token + session 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
 
-        suppDao.getAllSuppliers().then(() => {
+        suppDao.getAllSuppliers().then((data) => {
             let dataArr = data[0];
             let resArr = [];
-            console.log("sosiska");
             for (let sup of dataArr) {
                 resArr.push({
                     id : sup.sup_edrpou,

@@ -19,6 +19,15 @@ async function insertNewCategory(cat_name, cat_notes) {
     return res;
 }
 
+//cat_notes can be null
+async function updateCategoryById(id, name, notes) {
+    const conn = await db.connection();
+    const sql = "UPDATE category SET cat_name = ?, cat_notes = ? WHERE cat_id = ?";
+    const data = [name, notes, id];
+    let res = await conn.query(sql, data);
+    conn.release();
+    return res;
+}
 
 async function deleteCategoryById(catId) {
     const conn = await db.connection();
@@ -29,4 +38,4 @@ async function deleteCategoryById(catId) {
     return res;
 }
 
-module.exports = { getCategoriesByProdCd, insertNewCategory, deleteCategoryById };
+module.exports = { getCategoriesByProdCd, insertNewCategory, updateCategoryById, deleteCategoryById };

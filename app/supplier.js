@@ -11,30 +11,27 @@ function initSupplier(app, jsonParser) {
 
         suppDao.getAllSuppliers().then((data) => {
             let dataToSend = JSON.stringify(data[0]);
-            res.write(dataToSend);
-            /*let dataArr = data[0];
-            let resArr = [];
-            for (let sup of dataArr) {
-                resArr.push({
-                    id: sup.sup_edrpou,
-                    itn: sup.sup_itn,
-                    name: sup.sup_name,
-                    phone: sup.sup_phone,
-                    country: sup.sup_country,
-                    region: sup.sup_region,
-                    city: sup.sup_city,
-                    street: sup.sup_street,
-                    building: sup.sup_building,
-                    email: sup.sup_email,
-                    acc: sup.sup_acc
-                });
-            }
-            res.write(JSON.stringify(resArr));
-            */
 
+            res.write(dataToSend);
             res.end();
         }).catch(err => {
-            res.write(err);
+            res.write(err.stack);
+            res.end();
+        });
+
+    });
+
+    //Get all supplier invoices
+    app.get('/suppinv/:id', function(req, res) {
+        //TODO - check token + session 
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+
+        suppDao.getSupplierInvoices(req.params.id).then((data) => {
+            let dataToSend = JSON.stringify(data[0]);
+            res.write(dataToSend);
+            res.end();
+        }).catch(err => {
+            res.write(err.stack);
             res.end();
         });
 
@@ -42,10 +39,16 @@ function initSupplier(app, jsonParser) {
 
     app.get('/supp/:id', function(req, res) {
         //TODO - check token + session 
-        const myid = req.params.id;
-        console.log('id = ' + myid);
-        res.write("Supp with id = " + myid);
-        res.end();
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+
+        suppDao.getSupplier(req.params.id).then((data) => {
+            let dataToSend = JSON.stringify(data[0]);
+            res.write(dataToSend);
+            res.end();
+        }).catch(err => {
+            res.write(err.stack);
+            res.end();
+        });
     });
 
     app.post('/supp', jsonParser, async function(req, res) {

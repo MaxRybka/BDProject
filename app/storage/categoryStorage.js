@@ -23,7 +23,7 @@ async function insertNewCategory(cat_name, cat_notes) {
 async function deleteCategoryById(catId) {
     const conn = await db.connection();
     const sql = "DELETE FROM category WHERE cat_id = ?";
-    const data = [cat_id];
+    const data = [catId];
     let res = await conn.query(sql, data);
     conn.release();
     return res;

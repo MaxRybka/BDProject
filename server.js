@@ -11,6 +11,7 @@ let supplier = require('./app/supplier');
 let customer = require('./app/customer');
 let order = require('./app/order');
 let manuf = require('./app/manuf');
+let categ = require('./app/category');
 
 server.listen(8888);
 console.log('Server is running on port 8888');
@@ -27,6 +28,7 @@ order.initOrder(server, jsonParser);
 product.initProduct(server, jsonParser);
 supplier.initSupplier(server, jsonParser);
 manuf.initManuf(server, jsonParser);
+categ.initCategory(server, jsonParser);
 
 // Database functions - TBD
 //let db = require('./dbexec.js');
@@ -38,8 +40,8 @@ server.get('/', function(req, res) {
     //TODO - check token + session 
     //res.write("Main page here")
     console.log("main");
-    res.sendFile(__dirname+"/docs/index.html");
-    
+    res.sendFile(__dirname + "/docs/index.html");
+
 });
 
 //Login

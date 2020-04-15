@@ -15,7 +15,10 @@ async function getAllOrders() {
 async function getOrder(id){
     // получение объектов
     const conn = await db.connection();
-    let res= await conn.query(`SELECT ord_id, ord_date, ord_notes , cust_edrpou FROM mydb.order WHERE ord_id = ${id};`);
+    let res= await conn.query(`SELECT P.prod_cd, P.prod_name, O.price , O.line_amount, O.total_price, M.man_name
+                               FROM order_line O INNER JOIN product P ON O.prod_cd = P.prod_cd
+                                                 INNER JOIN manufacturer M ON M.man_id = P.man_id
+                               WHERE O.ord_id = ${id};`);
     conn.release();
     return res;
 }

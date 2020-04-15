@@ -3,7 +3,7 @@ const db = require('./dbexec');
 async function getAllManuf() {
     // получение объектов
     const conn = await db.connection();
-    let res = await conn.query("SELECT man_id, man_name, man_phone, man_country, man_city, man_street, man_build, man_email FROM manufacturer");
+    let res = await conn.query("SELECT man_id, man_name, man_phone, man_country, man_city, man_street, man_building, man_email FROM manufacturer");
     conn.release();
     return res;
 }

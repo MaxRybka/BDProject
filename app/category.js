@@ -1,4 +1,6 @@
 const catDao = require('./storage/categoryStorage');
+const prodDao = require('./storage/prodStorage');
+
 module.exports = { initCategory }
 
 function initCategory(app, jsonParser) {
@@ -6,16 +8,31 @@ function initCategory(app, jsonParser) {
     app.get('/category', function(req, res) {
         //TODO - check token + session 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write("Categories");
-        res.end();
+        catDao.getAllCategories().then((data) => {
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
     });
 
+    //get all products by category id
     app.get('/category/:id', function(req, res) {
         //TODO - check token + session     
-        const myid = req.params.id;
-        console.log('id = ' + myid);
-        res.write("Category with id = " + myid);
-        res.end();
+        const catId = req.params.id;
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+        prodDao.getProductsByCategoryId(catId).then((data) => {
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
     });
 
     app.post('/category', jsonParser, async function(req, res) {

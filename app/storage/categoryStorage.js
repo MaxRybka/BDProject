@@ -1,9 +1,17 @@
 const db = require('./dbexec');
 
+async function getAllCategories() {
+    // получение объектов
+    const conn = await db.connection();
+    let res = await conn.query(`SELECT category.cat_id, category.cat_name, category.cat_notes FROM category`);
+    conn.release();
+    return res;
+}
+
+//get all categories of given product
 async function getCategoriesByProdCd(cd) {
     // получение объектов
     const conn = await db.connection();
-
     let res = await conn.query(`SELECT category.cat_id, category.cat_name FROM belongs_to INNER JOIN category ON (category.cat_id = belongs_to.cat_id) WHERE belongs_to.prod_cd = ${cd}`);
     conn.release();
     return res;
@@ -38,4 +46,4 @@ async function deleteCategoryById(catId) {
     return res;
 }
 
-module.exports = { getCategoriesByProdCd, insertNewCategory, updateCategoryById, deleteCategoryById };
+module.exports = { getCategoriesByProdCd, insertNewCategory, updateCategoryById, deleteCategoryById, getAllCategories };

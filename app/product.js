@@ -18,11 +18,11 @@ function initProduct(app, jsonParser) {
             });
     });
 
-    //Get all categories of product
+    //Get all categories of product by id of product
     app.get('/prodcat/:id', function(req, res) {
         console.log("prod");
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        prodDao.getProductCategories(req.params.id).then((data) => {
+        catDao.getCategoriesByProdCd(req.params.id).then((data) => {
                 let dataToSend = JSON.stringify(data[0]);
                 res.write(dataToSend);
                 res.end();

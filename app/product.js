@@ -33,6 +33,20 @@ function initProduct(app, jsonParser) {
             });
     });
 
+    //Get all products by id of manufacturer
+    app.get('/prodmanuf/:id', function(req, res) {
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+        prodDao.getProductsByManufId(req.params.id).then((data) => {
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
+    });
+
     app.get('/prod/:id', function(req, res) {
         //TODO - check token + session 
         const myid = req.params.id;

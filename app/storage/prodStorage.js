@@ -19,5 +19,15 @@ async function getProductsByCategoryId(catId) {
     return res;
 }
 
+async function getProductsByManufId(manId) {
+    const conn = await db.connection();
+    const sql = "SELECT p.prod_cd, prod_name, prod_unit, prod_total_am, p.prod_notes, m.man_name" +
+        " FROM product p INNER JOIN manufacturer m ON (p.man_id = m.man_id)" +
+        " WHERE p.man_id = ?";
+    let res = await conn.query(sql, [manId]);
+    conn.release();
+    return res;
+}
 
-module.exports = { getAllProducts, getProductsByCategoryId };
+
+module.exports = { getAllProducts, getProductsByCategoryId, getProductsByManufId };

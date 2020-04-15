@@ -48,9 +48,8 @@ function initCustomer(app, jsonParser) {
 
     app.post('/cust', jsonParser, async function(req, res) {
         //check token
-        console.log("sosiska");
         let data = [req.body.cust_edrpou, req.body.cust_itn, req.body.cust_name, req.body.cust_phone, req.body.cust_region, req.body.cust_city, req.body.cust_street, req.body.cust_building, req.body.cust_email, req.body.cust_acc, req.body.cust_debt, req.body.cust_notes];
-        console.log(data);
+        //console.log(data);
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         custDao.insertNewCustomer(data).then(() => {
                 res.end();

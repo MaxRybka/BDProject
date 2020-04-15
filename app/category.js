@@ -55,11 +55,8 @@ function initCategory(app, jsonParser) {
         const id = req.params.id;
         let catName = req.body.cat_name;
         let catNotes = (req.body.cat_notes === undefined) ? null : req.body.cat_notes;
-        //TODO - db update batch with data
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         catDao.updateCategoryById(id, catName, catNotes).then((data) => {
-            //let dataToSend = JSON.stringify(data[0]);
-            //res.write(dataToSend);
             res.end();
         }).catch(err => {
             res.write(err.stack);
@@ -72,8 +69,6 @@ function initCategory(app, jsonParser) {
         const id = req.params.id;
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         catDao.deleteCategoryById(id).then((data) => {
-            //let dataToSend = JSON.stringify(data[0]);
-            //res.write(dataToSend);
             res.end();
         }).catch(err => {
             res.write(err.stack);

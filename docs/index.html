@@ -21,12 +21,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
     	<div class="col-md-4 mt-2 mt-md-0">
-    		<button id ="addProd" type="button" class="add btn btn-primary" data-supplier-id=""
+        <button id ="back" type="button" class="back btn btn-secondary invisible" data-supplier-id="" data-invoice-id="">
+        Back
+      </button>
+    		<button id ="addProduct" type="button" class="add btn btn-primary" data-supplier-id=""
         data-toggle="modal" data-target="#addprodmodal">
  				Add product
 			</button>
-    	</div>
-   
+       <button id ="back" type="button" class="add btn btn-primary invisible" data-supplier-id=""data-invoice-id="">
+        Back
+      </button>
+    	</div>     
    			<select id ="categ" class="custom-select categories col-md-4 mt-2 mt-md-0">
   			<option selected value="0">All categories</option>
 		</select> 
@@ -45,7 +50,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -60,20 +65,20 @@
   			<option selected value="m">meters</option>
   			<option value="kg">kilograms</option>
   			<option value="p">piece</option>
-		</select>
+		  </select>
 		<div>
 			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" style="width: 300px;">
+  			<select id="categories-add" multiple="multiple" >
     		</select>
 		</div>
 		<div>
-			<label >Choose manufacturer  </label>
-    		<select id="manufecturers-add" multiple="multiple">
-   			</select>
+			<label>Choose manufacturer  </label>
+    	<select id ="manufs" class="custom-select units">
+      </select>
 		</div>
   		<label for="notes">Notes</label>
   		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
-	</div>     
+	   </div>     
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" id="addpost" class="btn btn-primary">Add</button>
@@ -83,6 +88,81 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="infomodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addcustmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       <div class="modal-body">
+       <div class="row" >
+          <a for="article" class="col-md-6 ">Edrpou</a>
+          <a class="col-md-5 pad0">Itn</a>
+          <input type="text" class="form-control col-md-5 marg10" id="supedrpou" aria-describedby="basic-addon2">
+          <input type="text" class="form-control col-md-5 marg10" id="supitn" aria-describedby="basic-addon2">
+           <label class="col-md-11" for="article">Name</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supname" aria-describedby="basic-addon2">
+         
+        <label class="col-md-11" for="article">Phone</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supphone" aria-describedby="basic-addon2">
+
+         <label class="col-md-11" for="article">Email</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supemail" aria-describedby="basic-addon2">
+
+        <label class="col-md-6 pad0" for="article" >Country</label>
+        <label class="col-md-5 pad0" for="article" >Region</label>
+
+        <input type="text" class="form-control col-md-5 marg10" id="supcountry" aria-describedby="basic-addon2">
+
+       
+        <input type="text" class="form-control col-md-5 marg10" id="supregion" aria-describedby="basic-addon2">
+
+        <label class="col-md-6" for="article">City</label>
+        <label class="col-md-3 pad0" for="article" >Street</label>
+        <label class="col-md-2" for="article">Building</label>
+        <input type="text" class="form-control col-md-5 marg10" id="supcity" aria-describedby="basic-addon2">
+
+      
+        <input type="text" class="form-control col-md-3 marg10" id="supstreeet" aria-describedby="basic-addon2">
+
+       
+        <input type="text" class="form-control col-md-2  marg10" id="supbuild" aria-describedby="basic-addon2">
+
+        <label class="col-md-11" for="article">Account number</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supacc" aria-describedby="basic-addon2">
+
+        <label class="col-md-11" for="notes">Notes</label>
+        <textarea id="supnotes" class="form-control col-md-11 marg10" aria-label="With textarea"></textarea>
+        </div>
+        
+       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="addpost" class="btn btn-primary">Add</button>
+      </div>
+      </div>
+    </div>
+ </div>
+</div>
 
  <div class="modal fade" id="addsupmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -93,41 +173,109 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-      <label for="article">Article</label>
-  		<input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
-  		<label for="name">Title</label>
-  		<input type="text" class="form-control" id="name" aria-describedby="basic-addon3">
-  		<label for="unit">Unit</label>
-  		<select id ="unit" class="custom-select units">
-  			<option selected value="m">meters</option>
-  			<option value="kg">kilograms</option>
-  			<option value="p">piece</option>
-		</select>
-		<div>
-			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" style="width:300px;">
-    		</select>
-		</div>
-		<div>
-			<label >Choose manufacturer  </label>
-    		<select id="manufecturers-add" multiple="multiple">
-   			</select>
-		</div>
-  		<label for="notes">Notes</label>
-  		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
-	</div>
-      <div class="modal-footer">
+       <div class="modal-body">
+       <div class="row" >
+          <a for="article" class="col-md-6 ">Edrpou</a>
+          <a class="col-md-5 pad0">Itn</a>
+          <input type="text" class="form-control col-md-5 marg10" id="supedrpou" aria-describedby="basic-addon2">
+          <input type="text" class="form-control col-md-5 marg10" id="supitn" aria-describedby="basic-addon2">
+           <label class="col-md-11" for="article">Name</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supname" aria-describedby="basic-addon2">
+         
+        <label class="col-md-11" for="article">Phone</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supphone" aria-describedby="basic-addon2">
+
+         <label class="col-md-11" for="article">Email</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supemail" aria-describedby="basic-addon2">
+
+        <label class="col-md-6 pad0" for="article" >Country</label>
+        <label class="col-md-5 pad0" for="article" >Region</label>
+
+        <input type="text" class="form-control col-md-5 marg10" id="supcountry" aria-describedby="basic-addon2">
+
+       
+        <input type="text" class="form-control col-md-5 marg10" id="supregion" aria-describedby="basic-addon2">
+
+        <label class="col-md-6" for="article">City</label>
+        <label class="col-md-3 pad0" for="article" >Street</label>
+        <label class="col-md-2" for="article">Building</label>
+        <input type="text" class="form-control col-md-5 marg10" id="supcity" aria-describedby="basic-addon2">
+
+      
+        <input type="text" class="form-control col-md-3 marg10" id="supstreeet" aria-describedby="basic-addon2">
+
+       
+        <input type="text" class="form-control col-md-2  marg10" id="supbuild" aria-describedby="basic-addon2">
+
+        <label class="col-md-11" for="article">Account number</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supacc" aria-describedby="basic-addon2">
+
+        <label class="col-md-11" for="notes">Notes</label>
+        <textarea id="supnotes" class="form-control col-md-11 marg10" aria-label="With textarea"></textarea>
+        </div>
+        
+       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" id="addpost" class="btn btn-primary">Add</button>
       </div>
       </div>
     </div>
-  </div>
+ </div>
 </div>
 
+ <div class="modal fade" id="addmanufmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Manufacturer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       <div class="modal-body">
+       <div class="row">
+        <label class="col-md-11" for="article">Name</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supname" aria-describedby="basic-addon2">
+         
+        <label class="col-md-11" for="article">Phone</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supphone" aria-describedby="basic-addon2">
 
-  <div class="modal fade" id="addinvmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <label class="col-md-11" for="article">Email</label>
+        <input type="text" class="form-control col-md-11 marg10" id="supemail" aria-describedby="basic-addon2">
+
+        <label class="col-md-6 pad0" for="article" >Country</label>
+        <label class="col-md-5 pad0" for="article" >Region</label>
+
+        <input type="text" class="form-control col-md-5 marg10" id="supcountry" aria-describedby="basic-addon2">
+
+       
+        <input type="text" class="form-control col-md-5 marg10" id="supregion" aria-describedby="basic-addon2">
+
+        <label class="col-md-6" for="article">City</label>
+        <label class="col-md-3 pad0" for="article" >Street</label>
+        <label class="col-md-2" for="article">Building</label>
+        <input type="text" class="form-control col-md-5 marg10" id="supcity" aria-describedby="basic-addon2">
+
+      
+        <input type="text" class="form-control col-md-3 marg10" id="supstreeet" aria-describedby="basic-addon2">
+
+       
+        <input type="text" class="form-control col-md-2  marg10" id="supbuild" aria-describedby="basic-addon2">
+
+        <label class="col-md-11" for="notes">Notes</label>
+        <textarea id="supnotes" class="form-control col-md-11 marg10" aria-label="With textarea"></textarea>
+        </div>
+        
+       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="addpost" class="btn btn-primary">Add</button>
+      </div>
+      </div>
+    </div>
+ </div>
+</div>
+
+<div class="modal fade" id="addinvmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -272,6 +420,12 @@
             <a class="nav-link navtext" id="customers" href="#">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               Customers
+            </a>
+          </li>
+          <li class="nav-item navmarg">
+            <a class="nav-link navtext" id="manufacturers" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              Manufacturers
             </a>
           </li>
          

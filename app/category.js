@@ -41,8 +41,6 @@ function initCategory(app, jsonParser) {
         let catNotes = (req.body.cat_notes === undefined) ? null : req.body.cat_notes;
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         catDao.insertNewCategory(catName, catNotes).then((data) => {
-            //let dataToSend = JSON.stringify(data[0]);
-            //res.write(dataToSend);
             res.end();
         }).catch(err => {
             res.write(err.stack);

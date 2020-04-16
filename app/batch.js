@@ -11,7 +11,7 @@ function initBatch(app, jsonParser) {
         res.end();
     });
 
-    //
+    //get batches by invoice id
     app.get('/batchinv/:id', function(req, res) {
         let invId = req.params.id;
         //TODO - check token + session 

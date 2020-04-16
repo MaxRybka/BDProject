@@ -76,12 +76,4 @@ function initSupplier(app, jsonParser) {
         });
     });
 
-    app.delete('/supp/:id', async function(req, res) {
-        const id = req.params.id;
-        //check token
-        //todo - delete supplier
-        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('The supplier has been deleted');
-        res.end();
-    });
 }

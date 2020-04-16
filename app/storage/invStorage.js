@@ -13,8 +13,8 @@ async function addNewInvoice(invData, batchesArr) {
     try {
         await conn.beginTransaction();
         //console.log('Inv data: ' + `${invData}`);
-        console.log('Batches arr: ');
-        console.log(batchesArr);
+        //console.log('Batches arr: ');
+        //console.log(batchesArr);
 
         await conn.query('INSERT INTO invoice (inv_id, inv_date, inv_notes, sup_edrpou) VALUES (?, ?, ?, ?)', invData);
         let batchsql = 'INSERT INTO batch (prod_cd, inv_id, bat_extra, bat_amount, bat_price, bat_initamount) VALUES ';

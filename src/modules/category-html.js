@@ -1,8 +1,8 @@
 let _makeHtml = ({
-	id,
-	name,
+	cat_id,
+	cat_name,
 }) => {
-	let $product = $(`<option value="${id}">${name}</option>`);
+	let $product = $(`<option value="${cat_id}">${cat_name}</option>`);
 	return $product;
 };
  module.exports = _makeHtml;

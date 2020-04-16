@@ -1,16 +1,15 @@
 let _makeHtml = ({
 	ord_id,
 	ord_date,
-	ord_total,
+	ord_price,
 	ord_notes,
 	cust_edrpou,
 	cust_name
 }) => {
-	let $product = $(`<tr data-order-id="${ord_id}" data-date="${ord_date}" data-price="${ord_total}"	
-		data-notes="${ord_notes}" data-cust_name="${cust_name}" data-cust_id="${cust_edrpou}">
+	let $product = $(`<tr data-order-id="${ord_id}" data-cust_id="${cust_edrpou}">
       <th scope="row" >${ord_id}</th>
       <td>${ord_date.split("T")[0]}</td>
-      <td>${ord_total}</td>`);
+      <td>${ord_price}</td>`);
 	  if(ord_notes != null) {
 	    $($product).append(`<td class="text-break">${ord_notes}</td>`);
 	   }else{

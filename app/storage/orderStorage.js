@@ -26,9 +26,7 @@ async function getOrder(id){
 async function addNewOrder(data,order_lines_array){
     const conn = await db.connection();
     try {
-        console.log('Begin of transaction');
         await conn.beginTransaction();
-        console.log("Insering to order : " + data);
         await conn.query('INSERT INTO mydb.order (ord_id, ord_date, ord_notes, cust_edrpou) VALUES (?, ?, ?, ?)', data);
         let order_line_sql = 'INSERT INTO order_line (prod_cd, ord_id, line_amount, price) VALUES ';
 

@@ -33,16 +33,13 @@ function initOrder(app, jsonParser) {
 
     app.post('/order', jsonParser, async function(req, res) {
         //check token
-        console.log("order");
         let ord_notes = (req.body.ord_notes === undefined) ? null : req.body.ord_notes;
         let dataOrders = [req.body.ord_id, req.body.ord_date, ord_notes, req.body.cust_edrpou];
         let dataOrderLines = req.body.order_lines;
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
 
-        console.log("Creating new order " + dataOrders + "\nOrder_lines : " + dataOrderLines);
         orderDao.addNewOrder(dataOrders, dataOrderLines)
         .then(() => {
-            console.log("Orders Added!!!");
             res.end();
         }).catch(err => {
             res.write(err.stack);

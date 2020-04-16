@@ -34,3 +34,25 @@ Content-Type: application/json
    "cust_acc": "6sqq7g217e12e6ey78t1g2d81y2b78", 
    "cust_debt": 1
 }
+
+###
+
+POST http://localhost:8888/order
+Content-Type: application/json
+
+{
+   "ord_id" : 6666,
+   "ord_date" : "2020-04-16",
+   "ord_notes" : "",
+   "cust_edrpou" : 44444444,
+   "order_lines" : [
+      {
+         "prod_cd" : 222234,
+         "line_amount" : 60
+      },
+      {
+         "prod_cd" : 333112,
+         "line_amount" : 40
+      }
+   ]
+}

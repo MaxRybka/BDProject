@@ -26,11 +26,8 @@
       </button>
     		<button id ="addProduct" type="button" class="add btn btn-primary" data-supplier-id=""
         data-toggle="modal" data-target="#addprodmodal">
- 				Add product
+ 				Add Pproduct
 			</button>
-       <button id ="back" type="button" class="add btn btn-primary invisible" data-supplier-id=""data-invoice-id="">
-        Back
-      </button>
     	</div>     
    			<select id ="categ" class="custom-select categories col-md-4 mt-2 mt-md-0">
   			<option selected value="0">All categories</option>
@@ -81,7 +78,7 @@
 	   </div>     
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
+        <button type="button" id="addpost" class="prodpost btn btn-primary">Add</button>
       </div>
       </div>
     </div>
@@ -93,14 +90,18 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <h5 class="modal-title" id="infoLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="infobody">
      
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      
     </div>
   </div>
 </div>
@@ -285,23 +286,33 @@
         </button>
       </div>
     <div class="modal-body">
-            <label for="article">Code</label>
-            <input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
+            <label for="invid">Id</label>
+            <input type="text" class="form-control" id="invid" aria-describedby="basic-addon2">
             
             <label for="example-date-input">Date</label>
-            <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+            <input class="form-control" type="date" value="2011-08-19" id="invdate">
             
             <label for="notes">Notes</label>
-            <textarea id="notes" class="form-control" aria-label="With textarea"></textarea>
-            <div class="row addrow">
-            <select id="invprod" class="custom-select units col-md-4 marg10">
-              <option selected="" value="m">meters</option>
+            <textarea id="invnotes" class="form-control" aria-label="With textarea"></textarea>
+            <label >Supplier</label>
+            <select id="invsupp" class="custom-select">
             </select>
-            <input type="text" class="form-control col-md-4 marg10" id="ordamount" aria-describedby="basic-addon2">
-            <button id ="addprodinvtable"type="button" class="btn btn-outline-success butmar">Add</button>
+            <div class="row addrow">
+               <label class="col-md-12">Product</label>
+               <select id="invprod" class="custom-select col-md-7 marg10">
+               </select>
+               <button id="addProductInv" type="button" class="btn col-md-4 btn-outline-success butmar" 
+               data-supplier-id="" data-toggle="modal" data-target="#addprodmodal" data-dismiss="modal">Create product</button>
+               <label class="col-md-4">Price</label>
+               <label class="col-md-4">Amount</label>
+               <label class="col-md-2">Extra</label>
+               <input type="text" class="form-control col-md-4 marg10" id="invprice" aria-describedby="basic-addon2">
+               <input type="text" class="form-control col-md-4 marg10" id="invamount" aria-describedby="basic-addon2">
+               <input type="text" class="form-control col-md-2 marg10" id="invextra" aria-describedby="basic-addon2">
+               <button id ="addprodinvtable"type="button" class="btn btn-outline-success butmar">Add to invoice</button>
             </div>
     <div class="col-md-12"></div>
-            <table class="table" id="prodinvtable">
+            <table class="table" >
                 <thead>
                   <tr>
                     <th scope="col">Product</th>
@@ -310,13 +321,13 @@
                     <th scope="col">Extra</th>
                   </tr>
                 </thead>
-                <tbody>                
+                <tbody id="prodinvtable">                
                 </tbody>
               </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
+        <button type="button" id="addinvpost" class="btn btn-primary">Add</button>
       </div>
       </div>
     </div>

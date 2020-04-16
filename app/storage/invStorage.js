@@ -36,8 +36,8 @@ async function addNewInvoice(invData, batchesArr) {
         console.log("Successfully added new invoice and batches. COMMITTED...");
     } catch (e) {
         console.log("Error occured while adding new invoice.\nROLLBACK...\n: " + e.stack);
-        await connection.rollback();
-        return await connection.release();
+        await conn.rollback();
+        return await conn.release();
     } finally {
         return conn.release();
     }

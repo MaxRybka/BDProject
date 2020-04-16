@@ -58,8 +58,6 @@ function createAllSupInvoices(id){
 	$('.add').attr('data-supplier-id',id); 
 
 
-	$('.back').attr('data-supplier-id',id); 
-	$('.back').removeClass("invisible");
 	let $table = $(`<table class="table"><thead><tr>
 		<th >#</th><th >Date</th>
 		<th >Total price</th><th >Notes</th><th >Supplier</th></tr></thead><tbody id="invtable"></tbody> </table>`);
@@ -79,10 +77,37 @@ function createAllSupInvoices(id){
 	});	
 }
 
+function createAllSuppliers(){
+	$('#categ').attr('disabled','disabled');
+	clearGrid()
+	$('.back').addClass("invisible");
+	$('.back').attr('data-supplier-id',""); 
+	$('.add').html('Add Supplier');
+	$('.add').attr('id','addSupplier'); 
+	$('.add').attr('data-target','#addsupmodal'); 
+	let $table = $(`<table class="table"><thead><tr>
+		<th scope="col">Edrpou</th><th >Itn</th>
+		<th >name</th><th>Phone</th><th>Email</th><th>Country</th>
+		<th>Region</th><th>City</th><th>Street</th><th>Account</th>
+		<th>Notes</th></tr></thead><tbody id="supptable"></tbody> </table>`);
+	$('.product-grid').append($table);
+  	jQuery.ajax({
+		url: uri+'/supp',
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(supplier => $('#supptable').append(_makesupplier(supplier)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
+}
 
  $(document).ready(function() {
-       createAllProducts();
-       jQuery.ajax({
+    createAllProducts();
+    jQuery.ajax({
 		url: uri+'/category',
 		method: 'get',
 	 	dataType: 'json',
@@ -93,7 +118,14 @@ function createAllSupInvoices(id){
 		error: function(xhr){
 			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	 	},
-		});
+	});
+    $('#infomodal').on('hidden.bs.modal', function () {
+		$('#infobody').empty();	
+	});
+	$('#addinvmodal').on('hidden.bs.modal', function () {
+		$('#invprod').empty();
+		$('#invsupp').empty();		
+	});
 });
 
 let _makeCategory = require('./modules/category-html');
@@ -148,31 +180,7 @@ $(document).on('click','#invoices',function(){
 let _makesupplier= require('./modules/supplier-html');
 $(document).on('click','#suppliers',function(){
 	console.log("suppliers");
-	$('#categ').attr('disabled','disabled');
-	clearGrid()
-	$('.back').addClass("invisible");
-	$('.back').attr('data-supplier-id',""); 
-	$('.add').html('Add Supplier');
-	$('.add').attr('id','addSupplier'); 
-	$('.add').attr('data-target','#addsupmodal'); 
-	let $table = $(`<table class="table"><thead><tr>
-		<th scope="col">Edrpou</th><th >Itn</th>
-		<th >name</th><th>Phone</th><th>Email</th><th>Country</th>
-		<th>Region</th><th>City</th><th>Street</th><th>Account</th>
-		<th>Notes</th></tr></thead><tbody id="supptable"></tbody> </table>`);
-	$('.product-grid').append($table);
-  	jQuery.ajax({
-	url: uri+'/supp',
-	method: 'get',
- 	dataType: 'json',
- 	success: function(json){
-		console.table(json);
- 		json.forEach(supplier => $('#supptable').append(_makesupplier(supplier)));
-	},
-	error: function(xhr){
-		alert("An error occured: " + xhr.status + " " + xhr.statusText);
- 	},
-});
+	createAllSuppliers();
 });
 
 
@@ -277,7 +285,11 @@ $(document).on('click','#manufacturers',function(){
 let _makebatch= require('./modules/batch-html');
 $(document).on('click','#showinvbatch',function(){
 	var $this = $(this);
+
 	var id = $this.closest('[data-invoice-id]').data('invoice-id');
+	$('.back').attr('data-invoice-id',id); 
+	$('.back').attr('id','backtoinv'); 
+	$('.back').removeClass("invisible");
     console.log("show batches of inv "+id);
 	clearGrid()
 	let $table = $(`<table class="table">
@@ -295,25 +307,47 @@ $(document).on('click','#showinvbatch',function(){
 	$('.product-grid').append($table);
 
   	jQuery.ajax({
-	url: uri+'/batchinv/'+id,
-	method: 'get',
- 	dataType: 'json',
- 	success: function(json){
-		console.table(json);
- 		json.forEach(batch => $('#batchtable').append(_makebatch(batch)));
-	},
-	error: function(xhr){
-		alert("An error occured: " + xhr.status + " " + xhr.statusText);
- 	},
-});
+		url: uri+'/batchinv/'+id,
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(batch => $('#batchtable').append(_makebatch(batch)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
 });
 
 $(document).on('click','#invsupbtn',function(){
 	var $this = $(this);
 	var id = $this.closest('[data-supplier-id]').data('supplier-id');
-
+	$('.back').attr('id','suppliers'); 
+	$('.back').attr('data-supplier-id',id); 
+	$('.back').removeClass("invisible");
     console.log("show inv "+id);
 	createAllSupInvoices(id);
+});
+
+let _makesupinfo= require('./modules/supplier-info-html');
+$(document).on('click','#supinfo',function(){
+	var $this = $(this);
+	var id = $this.closest('[data-supplier-id]').data('supplier-id');
+	$('#infoLabel').text("Supplier");
+    console.log("show info "+id);
+    jQuery.ajax({
+		url: uri+'/supp/'+id,
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(supp => $('#infobody').append(_makesupinfo(supp)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
 });
 
 
@@ -337,11 +371,13 @@ $(document).on('click','#delinvbtn',function(){
 	//createAllProducts();
 });
 
-$(document).on('click', '#back',function(){
+$(document).on('click', '#backtoinv',function(){
 	console.log('back');
+	$('.back').attr('id','suppliers'); 
 	if($(this).data('supplier-id')===""){
 		createAllInvoices();
 	}else{
+		//$('.back').attr('id','suppliers'); 
 		createAllSupInvoices($(this).data('supplier-id'));
 	}
 });
@@ -393,8 +429,47 @@ $(document).on('click','[data-product-id] #editprodbtn',function(){
 	//createAllProducts();
 });
 
+$(document).on('click', '#addinvpost',function(){
+	console.log('Invoice post');
 
-$(document).on('click', '#addpost',function(){
+	
+	var batch=[];
+	$('#prodinvtable tr').each(function() {
+		var $this = $(this);
+    	let res={
+    		prod_cd:$this.closest('[data-product-id]').data('product-id'),
+    		inv_id: parseInt($("#invid").val()),
+    		bat_price:$this.closest('[data-product-id]').data('price'),
+    		bat_amount: $this.closest('[data-product-id]').data('amount'),
+    		bat_extra: $this.closest('[data-product-id]').data('extra'),
+    		bat_initamount: $this.closest('[data-product-id]').data('amount')
+    	}; 
+    	batch.push(res);  
+    	console.table(res); 
+ 	});
+ 	let result={inv_id: parseInt($("#invid").val()),
+				inv_date:$("#invdate").val(),
+				inv_notes:$("#invnotes").val(),
+				sup_edrpou:$("#invsupp").children("option:selected").val(),
+				batches:batch};
+	console.table(result);
+	$.ajax({
+		type: "POST",
+	    url:uri+"/inv",
+	    data: JSON.stringify(result),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: 'json',
+	    success: function(data){
+	    	alert(data);
+	    },failure: function(errMsg) {
+        	alert(errMsg);
+    	}
+	});
+
+});
+
+
+$(document).on('click', '.prodpost',function(){
 	console.log('add post');
 	let result={article: $("#article").val(),
 				title:$("#title").val(),
@@ -402,7 +477,7 @@ $(document).on('click', '#addpost',function(){
 
 	}
 
-    alert($('#categories-add').val());
+   $('#categories-add').val();
  
 	console.log(result);
 	// $.ajax({
@@ -452,12 +527,72 @@ $(document).on('click','#addProduct',function(){
 });
 
 
+let _makeprodopt= require('./modules/product-option-html');
+function createInvProds(){
+	jQuery.ajax({
+		url: uri+'/prod',
+		method: 'get',
+ 		dataType: 'json',
+ 		success: function(json){
+ 			json.forEach(prod => $('#invprod').append(_makeprodopt(prod)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+ 		},
+ 	});
+}
+
+
+let _makesuppopt= require('./modules/supp-option-html');
+$(document).on('click','#addInvoice',function(){
+	console.log('adding invoice');
+ 	createInvProds();	
+ 	jQuery.ajax({
+		url: uri+'/supp',
+		method: 'get',
+ 		dataType: 'json',
+ 		success: function(json){
+ 			json.forEach(supp => $('#invsupp').append(_makesuppopt(supp)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+ 		},
+ 	});
+});
+
+
 $(document).on('click','#addSupplier',function(){
 	console.log('add supp');
 	
-
+});
+$(document).on('click','#addprodinvtable',function(){
+	$('#prodinvtable').append(`
+		<tr data-product-id="${$("#invprod").children("option:selected").val()}"
+		data-price="${$("#invprice").val()}" 
+		data-amount="${$("#invamount").val()}" 
+		data-extra="${$("#invextra").val()}">
+      <th scope="row" >${$("#invprod").children("option:selected").text()}</th>
+      <td>${$("#invprice").val()}</td>
+      <td>${$("#invamount").val()}</td>
+       <td>${$("#invextra").val()}</td>
+	`);
+	
 });
 
+
+$(document).on('click','#addProductInv',function(){
+	console.log('add product In invoice');
+	$('.prodpost').attr('id','addProductInvPost'); 
+	$('#invprod').empty();
+
+});
+$(document).on('click','#addProductInvPost',function(){
+	console.log('add product In invoice post');
+	$('#addprodmodal').modal('hide');
+	$('#addinvmodal').modal('show');
+	$('.prodpost').attr('id','addpost'); 
+	createInvProds();
+});
 
 $('.categories').change(function() {
 	console.log($(this).attr('id'));

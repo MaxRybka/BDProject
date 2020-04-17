@@ -1,9 +1,12 @@
-
-
-POST https://qznetbc.herokuapp.com/api/users/login 
+POST http://localhost:8888/prod
 Content-Type: application/json
 
 {
-    "password": "12345678",
-    "username": "third"
+    "prod_cd": "444444",
+    "prod_name": "TEST",
+    "prod_unit": "kg",
+    "man_id": 1,
+    "categs": [1,2,3]
 }
+
+###

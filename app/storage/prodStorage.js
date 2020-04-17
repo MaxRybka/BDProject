@@ -29,5 +29,48 @@ async function getProductsByManufId(manId) {
     return res;
 }
 
+async function addNewProduct(prod_cd, dataProduct, dataCategs) {
+    console.log("prod cd:");
+    console.log(prod_cd);
+    console.log("prod data:");
+    console.log(dataProduct);
+    console.log("categs data:");
+    console.log(dataCategs);
 
-module.exports = { getAllProducts, getProductsByCategoryId, getProductsByManufId };
+    let categsSql = "INSERT INTO belongs_to (prod_cd, cat_id) " +
+        "VALUES ";
+
+    for (let i = 0; i < dataCategs.length; i++) {
+        categsSql += `(${prod_cd}, ${dataCategs[i]})`;
+        if (i != (dataCategs.length - 1)) {
+            categsSql += ', ';
+        }
+    }
+    categsSql += ";";
+
+    console.log(categsSql);
+
+    const prodSql = "INSERT INTO product (prod_cd, prod_name, prod_unit, prod_total_am, prod_notes, man_id) " +
+        "VALUES (?, ?, ?, ?, ?, ?) ;";
+
+    console.log(prodSql);
+    const conn = await db.connection();
+
+    try {
+        await conn.beginTransaction()
+            //product
+        await conn.query(prodSql, dataProduct);
+        //belongs_to
+        await conn.query(categsSql);
+        console.log("Successfully added new product!\n COMMITTING...\n");
+        await conn.commit();
+    } catch (err) {
+        console.log("Error occured while adding new product!\n ROLLBACK...\n" + err.stack);
+        await conn.rollback();
+    } finally {
+        return conn.release();
+    }
+
+}
+
+module.exports = { getAllProducts, getProductsByCategoryId, getProductsByManufId, addNewProduct };

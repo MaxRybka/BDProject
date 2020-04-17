@@ -37,7 +37,6 @@ async function addNewInvoice(invData, batchesArr) {
     } catch (e) {
         console.log("Error occured while adding new invoice.\nROLLBACK...\n: " + e.stack);
         await conn.rollback();
-        return await conn.release();
     } finally {
         return conn.release();
     }

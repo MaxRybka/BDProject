@@ -62,12 +62,15 @@ function initCustomer(app, jsonParser) {
 
     app.put('/cust/:id', jsonParser, async function(req, res) {
         const id = req.params.id;
-        //check token
-        let data = req.body;
-        //todo - update client
+        let data = [req.body.cust_itn, req.body.cust_name, req.body.cust_phone, req.body.cust_region, req.body.cust_city, req.body.cust_street, req.body.cust_building, req.body.cust_email, req.body.cust_acc, req.body.cust_debt];
+        data.push((req.body.cust_notes === undefined) ? null : req.body.cust_notes);
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('The customer has been updated');
-        res.end();
+        custDao.updateCustomerById(id, data).then(() => {
+            res.end();
+        }).catch(err => {
+            res.write(err.stack);
+            res.end();
+        });
     });
 
     app.delete('/cust/:id', async function(req, res) {

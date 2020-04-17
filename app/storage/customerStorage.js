@@ -34,4 +34,14 @@ async function insertNewCustomer(data){
     return res;
 }
 
-module.exports = { getAllCustomers , getCustomer,getCustomerOrders, insertNewCustomer };
+//sup_notes can be null
+async function updateCustomerById(edrpou, data) {
+    const conn = await db.connection();
+    console.log(data);
+    const sql = `UPDATE customer SET cust_itn = ?, cust_name = ?, cust_phone = ?, cust_region = ?, cust_city = ?, cust_street = ?, cust_building = ?, cust_email = ?, cust_acc = ?, cust_debt = ?, cust_notes = ? WHERE cust_edrpou = ${edrpou};`;
+    let res = await conn.query(sql, data);
+    conn.release();
+    return res;
+}
+
+module.exports = { getAllCustomers , getCustomer,getCustomerOrders, insertNewCustomer, updateCustomerById };

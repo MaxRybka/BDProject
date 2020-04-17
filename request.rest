@@ -68,3 +68,21 @@ Content-Type: application/json
    "cat_notes" : "notes",
    "products" : [ 222234, 333112]
 }
+
+###
+
+PUT http://localhost:8888/cust/12312312
+Content-Type: application/json
+
+{
+   "cust_itn" : 92312312,
+   "cust_name" : "test", 
+   "cust_phone" : "380941421", 
+   "cust_region" : "Київська обл", 
+   "cust_city" : "Київ", 
+   "cust_street" : "Бориспільска", 
+   "cust_building" : "33",
+   "cust_email" : "www.epicentr@g,mail.com", 
+   "cust_acc" : "Ua1231231231231231231231231231", 
+   "cust_debt" : 30000
+}

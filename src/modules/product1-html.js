@@ -17,7 +17,6 @@ let _makeHtml = ({
 		$product.append($(`<p>Manufacturer:<a href="#" id="maninfo" class="badge badge-light" data-toggle="modal" 
       	data-target="#infomodal">  ${man_name}</a></p>`));
 		$product.append($(`<div> <button id="editprodbtn" type="button" class="btn btn-outline-primary butmar" data-toggle="modal" data-target="#editModal">Edit</button>  
-    		<button id="delprodbtn" type="button" class="btn btn-outline-danger butmar">Delete</button>
 	 		</div>`));
     	$product.append($(`</div></div>`));
 

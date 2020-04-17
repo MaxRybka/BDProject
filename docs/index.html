@@ -28,7 +28,7 @@
     		<button id ="addProduct" type="button" class="add btn btn-primary" data-supplier-id=""
         data-customer-id=""
         data-toggle="modal" data-target="#addprodmodal">
- 				Add Pproduct
+ 				Add Product
 			</button>
     	</div>     
    			<select id ="categ" class="custom-select categories col-md-4 mt-2 mt-md-0">
@@ -55,36 +55,45 @@
         </button>
       </div>
       <div class="modal-body">
-      <label for="article">Article</label>
-  		<input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
-  		<label for="name">Title</label>
-  		<input type="text" class="form-control" id="name" aria-describedby="basic-addon3">
-  		<label for="unit">Unit</label>
-  		<select id ="unit" class="custom-select units">
-  			<option selected value="m">meters</option>
-  			<option value="kg">kilograms</option>
-  			<option value="p">piece</option>
-		  </select>
-		<div>
-			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" >
-    		</select>
-		</div>
-		<div>
-			<label>Choose manufacturer  </label>
-    	<select id ="manufs" class="custom-select units">
+      <form id="addprodform">
+        <label for="article">Article</label>
+      <input type="text" class="form-control" id="article" aria-describedby="basic-addon2"  pattern="^[0-9]+" 
+      minlength="4" maxlength="10" required>
+      <label for="name">Title</label>
+      <input type="text" class="form-control" id="name" aria-describedby="basic-addon3"
+       pattern="^[A-Za-z]+" minlength="4" maxlength="20" required>
+      <label for="unit">Unit</label>
+      <select id ="unit" class="custom-select units" required>
+        <option selected value="m">meters</option>
+        <option value="kg">kilograms</option>
+        <option value="p">piece</option>
       </select>
-		</div>
-  		<label for="notes">Notes</label>
-  		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
-	   </div>     
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="prodpost btn btn-primary">Add</button>
+      <div>
+        <label for="categories-add">Choose categories</label>
+        <div id="catselect">
+          <select id="categories-add" multiple="multiple" >
+          </select>
+          <button type="button" id="addcateg" class="btn btn-outline-success marg10" data-toggle="modal" data-target="#addcategmodal" data-dismiss="modal">New category</button>
+        </div>
       </div>
-      </div>
+      <div>
+        <label>Choose manufacturer  </label>
+        <select id ="manufs" class="custom-select" required>
+        </select>
+
+        </div>
+          <label for="notes">Notes</label>
+          <textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
+
+        <div class="text-right">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" id="addpost" type="submit">Add</button>
+        </div>
+      </form>
+      
     </div>
   </div>
+</div>
 </div>
 
 
@@ -118,50 +127,55 @@
         </button>
       </div>
        <div class="modal-body">
-       <div class="row" >
+        <form id="addcustform">
+          <div class="row" >
           <a for="article" class="col-md-6 ">Edrpou</a>
           <a class="col-md-5 pad0">Itn</a>
-          <input type="text" class="form-control col-md-5 marg10" id="supedrpou" aria-describedby="basic-addon2">
-          <input type="text" class="form-control col-md-5 marg10" id="supitn" aria-describedby="basic-addon2">
+          <input type="text" class="form-control col-md-5 marg10" id="custedrpou" aria-describedby="basic-addon2" pattern="^[0-9]+" minlength="8" maxlength="8" required>
+          <input type="text" class="form-control col-md-5 marg10" id="custitn" aria-describedby="basic-addon2" pattern="^[0-9]+" minlength="11" maxlength="11" required>
            <label class="col-md-11" for="article">Name</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supname" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-11 marg10" id="custname" aria-describedby="basic-addon2"
+         pattern="^[A-Za-z]+" minlength="4" required>
          
         <label class="col-md-11" for="article">Phone</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supphone" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-11 marg10" id="custphone" aria-describedby="basic-addon2"
+        pattern="^[0-9\-\+]{9,15}$" required>
 
          <label class="col-md-11" for="article">Email</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supemail" aria-describedby="basic-addon2">
+        <input type="email" class="form-control col-md-11 marg10" id="custemail" aria-describedby="basic-addon2" required>
 
         <label class="col-md-6 pad0" for="article" >Country</label>
         <label class="col-md-5 pad0" for="article" >Region</label>
 
-        <input type="text" class="form-control col-md-5 marg10" id="supcountry" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-5 marg10" id="custcountry" aria-describedby="basic-addon2"
+        pattern="^[A-Za-z]+" minlength="4" required>
 
        
-        <input type="text" class="form-control col-md-5 marg10" id="supregion" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-5 marg10" id="custregion" aria-describedby="basic-addon2"
+        pattern="^[A-Za-z]+" minlength="4" required>
 
         <label class="col-md-6" for="article">City</label>
         <label class="col-md-3 pad0" for="article" >Street</label>
         <label class="col-md-2" for="article">Building</label>
-        <input type="text" class="form-control col-md-5 marg10" id="supcity" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-5 marg10" id="custcity" aria-describedby="basic-addon2" pattern="[A-Za-z]+" minlength="4" required>
 
       
-        <input type="text" class="form-control col-md-3 marg10" id="supstreeet" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-3 marg10" id="custstreet" aria-describedby="basic-addon2" minlength="4" pattern="^[A-Za-z]+" required>
 
        
-        <input type="text" class="form-control col-md-2  marg10" id="supbuild" aria-describedby="basic-addon2">
+        <input type="number" class="form-control col-md-2  marg10" id="custbuilding" aria-describedby="basic-addon2" required>
 
         <label class="col-md-11" for="article">Account number</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supacc" aria-describedby="basic-addon2">
+        <input type="num" class="form-control col-md-11 marg10" pattern="[A-Za-z0-9]+" id="custacc" aria-describedby="basic-addon2" required>
 
         <label class="col-md-11" for="notes">Notes</label>
-        <textarea id="supnotes" class="form-control col-md-11 marg10" aria-label="With textarea"></textarea>
+        <textarea id="custnotes" class="form-control col-md-11 marg10" aria-label="With textarea"></textarea>
         </div>
-        
-       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
-      </div>
+         <div class="text-right">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" id="custpost" type="submit">Add</button>
+        </div>
+        </form>
       </div>
     </div>
  </div>
@@ -177,50 +191,56 @@
         </button>
       </div>
        <div class="modal-body">
-       <div class="row" >
+        <form id="addsupform">
+          <div class="row" >
           <a for="article" class="col-md-6 ">Edrpou</a>
           <a class="col-md-5 pad0">Itn</a>
-          <input type="text" class="form-control col-md-5 marg10" id="supedrpou" aria-describedby="basic-addon2">
-          <input type="text" class="form-control col-md-5 marg10" id="supitn" aria-describedby="basic-addon2">
+          <input type="text" class="form-control col-md-5 marg10" id="supedrpou" aria-describedby="basic-addon2" pattern="^[0-9]+" minlength="8" maxlength="8" required>
+          <input type="text" class="form-control col-md-5 marg10" id="supitn" aria-describedby="basic-addon2" pattern="^[0-9]+" minlength="11" maxlength="11" required>
            <label class="col-md-11" for="article">Name</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supname" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-11 marg10" id="supname" aria-describedby="basic-addon2"
+         pattern="[A-Za-z]+" minlength="4" required>
          
         <label class="col-md-11" for="article">Phone</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supphone" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-11 marg10" id="supphone" aria-describedby="basic-addon2"
+        pattern="^[0-9\-\+]{9,15}$" required>
 
          <label class="col-md-11" for="article">Email</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supemail" aria-describedby="basic-addon2">
+        <input type="email" class="form-control col-md-11 marg10" id="supemail" aria-describedby="basic-addon2" required>
 
         <label class="col-md-6 pad0" for="article" >Country</label>
         <label class="col-md-5 pad0" for="article" >Region</label>
 
-        <input type="text" class="form-control col-md-5 marg10" id="supcountry" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-5 marg10" id="supcountry" aria-describedby="basic-addon2"
+        pattern="[A-Za-z]+" minlength="4" required>
 
        
-        <input type="text" class="form-control col-md-5 marg10" id="supregion" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-5 marg10" id="supregion" aria-describedby="basic-addon2"
+        pattern="[A-Za-z]+" minlength="4" required>
 
         <label class="col-md-6" for="article">City</label>
         <label class="col-md-3 pad0" for="article" >Street</label>
         <label class="col-md-2" for="article">Building</label>
-        <input type="text" class="form-control col-md-5 marg10" id="supcity" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-5 marg10" id="supcity" aria-describedby="basic-addon2" pattern="[A-Za-z]+" minlength="4" required>
 
       
-        <input type="text" class="form-control col-md-3 marg10" id="supstreeet" aria-describedby="basic-addon2">
+        <input type="text" class="form-control col-md-3 marg10" id="supstreet" aria-describedby="basic-addon2" minlength="4" pattern="[A-Za-z]+" required>
 
        
-        <input type="text" class="form-control col-md-2  marg10" id="supbuild" aria-describedby="basic-addon2">
+        <input type="number" class="form-control col-md-2  marg10" id="supbuilding" aria-describedby="basic-addon2" required>
 
         <label class="col-md-11" for="article">Account number</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supacc" aria-describedby="basic-addon2">
+        <input type="num" class="form-control col-md-11 marg10" pattern="[A-Za-z0-9]+" id="supacc" aria-describedby="basic-addon2" required>
 
         <label class="col-md-11" for="notes">Notes</label>
         <textarea id="supnotes" class="form-control col-md-11 marg10" aria-label="With textarea"></textarea>
         </div>
-        
-       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
-      </div>
+         <div class="text-right">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" id="suppost" type="submit">Add</button>
+        </div>
+        </form>
+      
       </div>
     </div>
  </div>
@@ -236,49 +256,14 @@
         </button>
       </div>
        <div class="modal-body">
-       <div class="row">
-        <label class="col-md-11" for="article">Name</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supname" aria-describedby="basic-addon2">
-         
-        <label class="col-md-11" for="article">Phone</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supphone" aria-describedby="basic-addon2">
-
-        <label class="col-md-11" for="article">Email</label>
-        <input type="text" class="form-control col-md-11 marg10" id="supemail" aria-describedby="basic-addon2">
-
-        <label class="col-md-6 pad0" for="article" >Country</label>
-        <label class="col-md-5 pad0" for="article" >Region</label>
-
-        <input type="text" class="form-control col-md-5 marg10" id="supcountry" aria-describedby="basic-addon2">
-
        
-        <input type="text" class="form-control col-md-5 marg10" id="supregion" aria-describedby="basic-addon2">
-
-        <label class="col-md-6" for="article">City</label>
-        <label class="col-md-3 pad0" for="article" >Street</label>
-        <label class="col-md-2" for="article">Building</label>
-        <input type="text" class="form-control col-md-5 marg10" id="supcity" aria-describedby="basic-addon2">
-
-      
-        <input type="text" class="form-control col-md-3 marg10" id="supstreeet" aria-describedby="basic-addon2">
-
-       
-        <input type="text" class="form-control col-md-2  marg10" id="supbuild" aria-describedby="basic-addon2">
-
-        <label class="col-md-11" for="notes">Notes</label>
-        <textarea id="supnotes" class="form-control col-md-11 marg10" aria-label="With textarea"></textarea>
-        </div>
-        
-       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
-      </div>
       </div>
     </div>
  </div>
 </div>
 
-<div class="modal fade" id="addinvmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addinvmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" 
+aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -288,20 +273,22 @@
         </button>
       </div>
     <div class="modal-body">
-            <label for="invid">Id</label>
-            <input type="text" class="form-control" id="invid" aria-describedby="basic-addon2">
+        <form id="addinvform">
+          <label for="invid">Id</label>
+            <input type="text" class="form-control" pattern="[0-9]+" id="invid" 
+            aria-describedby="basic-addon2" maxlength="10" minlength="2" required>
             
             <label for="example-date-input">Date</label>
-            <input class="form-control" type="date" value="2011-08-19" id="invdate">
+            <input class="form-control" type="date" value="2020-08-19" id="invdate" required> 
             
             <label for="notes">Notes</label>
             <textarea id="invnotes" class="form-control" aria-label="With textarea"></textarea>
             <label >Supplier</label>
-            <select id="invsupp" class="custom-select">
+            <select id="invsupp" class="custom-select" required>
             </select>
             <div class="row addrow">
                <label class="col-md-12">Product</label>
-               <select id="invprod" class="custom-select col-md-7 marg10">
+               <select id="invprod" class="custom-select col-md-7 marg10" required>
                </select>
                <button id="addProductInv" type="button" class="btn col-md-4 btn-outline-success butmar" 
                data-supplier-id="" data-toggle="modal" data-target="#addprodmodal" data-dismiss="modal">Create product</button>
@@ -313,7 +300,6 @@
                <input type="text" class="form-control col-md-2 marg10" id="invextra" aria-describedby="basic-addon2">
                <button id ="addprodinvtable"type="button" class="btn btn-outline-success butmar">Add to invoice</button>
             </div>
-    <div class="col-md-12"></div>
             <table class="table" >
                 <thead>
                   <tr>
@@ -326,15 +312,43 @@
                 <tbody id="prodinvtable">                
                 </tbody>
               </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addinvpost" class="btn btn-primary">Add</button>
+        <div class="text-right">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" id="addinvpost" type="submit">Add</button>
+        </div>
+        </form>
+            
       </div>
       </div>
     </div>
   </div>
+
+<div class="modal fade" id="addcategmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add invoice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="myForm">
+            <label for="invid">Name</label>
+            <input type="text" class="form-control" id="catname" pattern="[a-zA-Z]+" aria-describedby="basic-addon2" minlength="2" required >
+            <label >Products</label>
+            <select id="catprod" multiple="multiple">
+            </select>    
+            <div class="text-right">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="addcatpost" class="btn btn-primary" type="submit">Add</button>
+            </div>
+        </form>   
+      </div>
+    </div>
+  </div>
 </div>
+
 
  <div class="modal fade" id="addordmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -346,38 +360,51 @@
         </button>
       </div>
       <div class="modal-body">
-      <label for="article">Code</label>
-  		<input type="text" class="form-control" id="article" aria-describedby="basic-addon2">
-  		
-  		<label for="example-date-input" class="col-2 col-form-label">Date</label>
-  		<div class="col-10">
-    		<input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-  		</div>
-
-  		<label for="unit">Unit</label>
-  		<select id ="unit" class="custom-select units">
-  			<option selected value="m">meters</option>
-  			<option value="kg">kilograms</option>
-  			<option value="p">piece</option>
-		</select>
-		<div>
-			<label for="categories-add">Choose categories</label>
-  			<select id="categories-add" multiple="multiple" style="width: 300px;">
-    		</select>
-		</div>
-		<div>
-			<label >Choose manufacturer  </label>
-    		<select id="manufecturers-add" multiple="multiple">
-   			</select>
-		</div>
-  		<label for="notes">Notes</label>
-  		<textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
-	</div>
+      <form id="myForm">
+            <label for="ordid">Id</label>
+            <input type="text" class="form-control" pattern="[0-9]+" id="ordid" aria-describedby="basic-addon2"  
+            maxlength="10" minlength="2" required>
+            
+            <label for="example-date-input">Date</label>
+            <input class="form-control" type="date" value="2020-08-19" id="orddate" required>
+            
+            <label for="notes">Notes</label>
+            <textarea id="ordnotes" class="form-control" aria-label="With textarea"></textarea>
+            <label >Customer</label>
+            <select id="invsupp" class="custom-select" required>
+            </select>
+            <div class="row addrow">
+               <label class="col-md-12">Product</label>
+               <select id="ordprod" class="custom-select col-md-7 marg10">
+               </select>
+               <button id="addProductOrd" type="button" class="btn col-md-4 btn-outline-success butmar" 
+               data-supplier-id="" data-toggle="modal" data-target="#addprodmodal" data-dismiss="modal">Create product</button>
+               <label class="col-md-4">Amount</label>
+               <input type="text" class="form-control col-md-4 marg10"   id="invprice" aria-describedby="basic-addon2">
+               <button id ="addprodordtable"type="button" class="btn btn-outline-success butmar">Add to Order</button>
+            </div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="prodordtable" >                
+                </tbody>
+              </table>
+            <div class="text-right">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary" id="addordpost" type="submit">Add</button>
+            </div>
+           
+        </form>
+	    </div>
       
-      <div class="modal-footer">
+     <!--  <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="addpost" class="btn btn-primary">Add</button>
-      </div>
+        <button type="button" id="addpost" class="btn btn-primary" data-dismiss="modal">Add</button>
+      </div> -->
       </div>
     </div>
   </div>
@@ -449,6 +476,7 @@
 
 	
 	<main class="row product-grid col-md-10">
+
   	</main>
 
 
@@ -474,7 +502,7 @@
 		</select>
 		<div>
 			<label for="editcategories-add">Choose categories</label>
-  			<select id="editcategories-add" multiple="multiple" style="width: 300px;">
+  			<select id="editcategories-add" multiple="multiple" >
     		</select>
 		</div>
 		<div>

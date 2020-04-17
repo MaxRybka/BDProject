@@ -56,3 +56,15 @@ Content-Type: application/json
       }
    ]
 }
+
+###
+
+POST http://localhost:8888/category
+Content-Type: application/json
+
+{
+   "cat_id" : 4,
+   "cat_name" : "new cat",
+   "cat_notes" : "notes",
+   "products" : [ 222234, 333112]
+}

@@ -57,7 +57,6 @@ function initProduct(app, jsonParser) {
 
     app.post('/prod', jsonParser, async function(req, res) {
         //check token
-
         const prod_cd = req.body.prod_cd;
         let prod_notes = (req.body.prod_notes === undefined) ? null : req.body.prod_notes;
         let dataProd = [prod_cd, req.body.prod_name, req.body.prod_unit, 0, prod_notes, req.body.man_id];
@@ -73,13 +72,23 @@ function initProduct(app, jsonParser) {
     });
 
     app.put('/prod/:id', jsonParser, async function(req, res) {
-        const id = req.params.id;
+        const prod_cd = req.params.id;
         //check token
-        let data = req.body;
-        //todo - update product
+        let prod_notes = (req.body.prod_notes === undefined) ? null : req.body.prod_notes;
+        let dataProd = [req.body.prod_name,
+            req.body.prod_unit,
+            prod_notes,
+            req.body.man_id
+        ];
+        let dataCategs = req.body.categs;
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('The product has been updated');
-        res.end();
+        prodDao.updateProductById(prod_cd, dataProd, dataCategs)
+            .then(() => {
+                res.end();
+            }).catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
     });
 
     app.delete('/prod/:id', async function(req, res) {

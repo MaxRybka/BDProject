@@ -1,12 +1,11 @@
-POST http://localhost:8888/prod
+PUT http://localhost:8888/prod/444444
 Content-Type: application/json
 
 {
-    "prod_cd": "444444",
-    "prod_name": "TEST",
-    "prod_unit": "kg",
-    "man_id": 1,
-    "categs": [1,2,3]
+    "prod_name": "SECOND TEST",
+    "prod_unit": "cm",
+    "man_id": 2,
+    "categs": [2,3,4]
 }
 
 ###

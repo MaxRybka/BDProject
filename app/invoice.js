@@ -38,22 +38,4 @@ function initInvoice(app, jsonParser) {
         //console.log(dataBatches);
     });
 
-    app.put('/inv/:id', jsonParser, async function(req, res) {
-        const id = req.params.id;
-        //check token
-        let data = req.body;
-        //todo - update product
-        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('The invoice has been updated');
-        res.end();
-    });
-
-    app.delete('/inv/:id', async function(req, res) {
-        const id = req.params.id;
-        //check token
-        //todo - add new product
-        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('The invoice has been deleted');
-        res.end();
-    });
 }

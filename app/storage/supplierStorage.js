@@ -26,8 +26,9 @@ async function getSupplierInvoices(id) {
 
 //cat_notes can be null
 async function insertNewSupplier(data) {
+
     const conn = await db.connection();
-    const sql = "INSERT INTO supplier (sup_edrpou, sup_itn, sup_name, sup_phone, sup_email, sup_country, sup_region, sup_city, sup_street, sup_building,sup_acc,sup_notes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO supplier (sup_edrpou, sup_itn, sup_name, sup_phone, sup_country, sup_region, sup_city, sup_street, sup_building, sup_email,sup_acc,sup_notes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     let res = await conn.query(sql, data);
     conn.release();
     return res;

@@ -690,6 +690,7 @@ $(document).on('submit', '#addsupform',function(){
 		sup_phone: $("#supphone").val(),
 		sup_email: $("#supemail").val(),
 		sup_region: $("#supregion").val(),
+		sup_country: $("#supcountry").val(),
 		sup_city: $("#supcity").val(),
 		sup_street: $("#supstreet").val(),
 		sup_building: $("#supbuilding").val(),
@@ -705,11 +706,14 @@ $(document).on('submit', '#addsupform',function(){
 	    contentType: "application/json; charset=utf-8",
 	    dataType: 'json',
 	    success: function(data){
+	    	console.log("sardelka")
 	    	alert(data);
 	    },failure: function(errMsg) {
+	    	console.log("sardelka121")
         	alert(errMsg);
     	}
 	}).done(function(){
+		console.log("sosiska1")
  		createAllSuppliers();
 	});
 	console.log("sosiska")

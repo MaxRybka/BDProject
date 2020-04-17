@@ -18,7 +18,7 @@ let _makeHtml = ({
       <td>${bat_amount}</td>
       <td>${bat_endprice}</td>
       <td>${bat_lineprice}</td>
-      <td><a href="#" id="manufinfo" class="badge badge-light">${man_name}</a></td>`);
+      <td><a href="#" id="class="badge badge-light">${man_name}</a></td>`);
 	return $product;
 };
  module.exports = _makeHtml;

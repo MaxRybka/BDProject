@@ -8,7 +8,7 @@ let _makeHtml = ({
 	man_building,
 	man_notes
 }) => {
-	let $product = $(`<tr data-manomer-id="${man_id}"> 
+	let $product = $(`<tr data-manuf-id="${man_id}"> 
       <th scope="row" >${man_id}</th>
       <td>${man_name}</td>
       <td>${man_phone}</td>
@@ -22,7 +22,8 @@ let _makeHtml = ({
 	   	$($product).append(`<td>-</td>`);
 
 	   	};
-       $($product).append(`<td> <button type="button" id ="delmanbtn" class="btn btn-outline-danger butmar">Delete</button></td>
+       $($product).append(`<td> <button type="button" id ="delmanbtn" class="btn btn-outline-danger butmar">Delete</button>
+       	<button type="button" id="manufprod" class="btn btn-outline-primary butmar">Show products</button></td>
     </tr>`);
 	return $product;
 };

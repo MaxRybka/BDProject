@@ -12,17 +12,17 @@ function clearGrid(){
 }
 function createAllProducts(){	
 	jQuery.ajax({
-	url: uri+"/prod",
-	method: 'get',
- 	dataType: 'json',
- 	success: function(json){
-		console.table(json);
- 		json.forEach(product => $('.product-grid').append(_makeProduct(product)));
-	},
-	error: function(xhr){
-		alert("An error occured: " + xhr.status + " " + xhr.statusText);
- 	},
-});
+		url: uri+"/prod",
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(product => $('.product-grid').append(_makeProduct(product)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
 }
 
 
@@ -104,7 +104,61 @@ function createAllSuppliers(){
 	 	},
 	});
 }
+function createAllCustOrders(id){
+	clearGrid()
+	$(".add").html('Add Order');
+	$('.add').attr('id','addOrder'); 
+	$('.add').attr('data-target','#addordmodal'); 
+	$('.add').attr('data-customer-id',id); 
+	let $table = $(`<table class="table"><thead><tr>
+		<th scope="col">Id</th><th >Date</th><th >Price</th>
+		<th >Notes</th><th>Customer</th></tr>
+		</thead><tbody id="ordtable">
+		</tbody> </table>`);
+	$('.product-grid').append($table);
+  	jQuery.ajax({
+		url: uri+'/custord/'+id,
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(order => $('#ordtable').append(_makeorder(order)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
+}
 
+
+function createAllOrders(){
+	console.log("orders");
+	$('#categ').attr('disabled','disabled');
+	$('.back').addClass("invisible");
+	$('.back').attr('data-supplier-id',""); 
+	clearGrid()
+	$(".add").html('Add Order');
+	$('.add').attr('id','addOrder'); 
+	$('.add').attr('data-target','#addordmodal'); 
+	let $table = $(`<table class="table"><thead><tr>
+		<th scope="col">Id</th><th >Date</th><th >Price</th>
+		<th >Notes</th><th>Customer</th></tr>
+		</thead><tbody id="ordtable">
+		</tbody> </table>`);
+	$('.product-grid').append($table);
+  	jQuery.ajax({
+		url: uri+'/order',
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(order => $('#ordtable').append(_makeorder(order)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
+}
  $(document).ready(function() {
     createAllProducts();
     jQuery.ajax({
@@ -120,6 +174,7 @@ function createAllSuppliers(){
 	 	},
 	});
     $('#infomodal').on('hidden.bs.modal', function () {
+    	//$('#infolabel').empty();	
 		$('#infobody').empty();	
 	});
 	$('#addinvmodal').on('hidden.bs.modal', function () {
@@ -172,6 +227,7 @@ $(document).on('click','#products',function(){
 
 let _makeinvoice= require('./modules/invoice-html');
 $(document).on('click','#invoices',function(){
+	$('#categ').attr('disabled','disabled');
 	$('.back').attr('data-supplier-id',"");
 	$('.back').addClass("invisible");
 	createAllInvoices();
@@ -186,32 +242,7 @@ $(document).on('click','#suppliers',function(){
 
 let _makeorder= require('./modules/order-html');
 $(document).on('click','#orders',function(){
-	console.log("orders");
-	$('#categ').attr('disabled','disabled');
-	$('.back').addClass("invisible");
-	$('.back').attr('data-supplier-id',""); 
-	clearGrid()
-	$(".add").html('Add Order');
-	$('.add').attr('id','addOrder'); 
-	$('.add').attr('data-target','#addordmodal'); 
-	let $table = $(`<table class="table"><thead><tr>
-		<th scope="col">Id</th><th >Date</th><th >Price</th>
-		<th >Notes</th><th>Customer</th></tr>
-		</thead><tbody id="ordtable">
-		</tbody> </table>`);
-	$('.product-grid').append($table);
-  	jQuery.ajax({
-	url: uri+'/order',
-	method: 'get',
- 	dataType: 'json',
- 	success: function(json){
-		console.table(json);
- 		json.forEach(order => $('#ordtable').append(_makeorder(order)));
-	},
-	error: function(xhr){
-		alert("An error occured: " + xhr.status + " " + xhr.statusText);
- 	},
-});
+	createAllOrders();
 });
 
 let _makecustomer= require('./modules/customer-html');
@@ -282,6 +313,65 @@ $(document).on('click','#manufacturers',function(){
 });
 });
 
+let _makeordline= require('./modules/orderline-html');
+$(document).on('click','#showordline',function(){
+	var $this = $(this);
+
+	var id = $this.closest('[data-order-id]').data('order-id');
+	$('.back').attr('data-orline-id',id); 
+	$('.back').attr('id','backtoord'); 
+	$('.back').removeClass("invisible");
+    console.log("showorder lines "+id);
+	clearGrid()
+	let $table = $(`<table class="table">
+		<thead><tr>
+		<th>Product code</th>
+		<th>Product</th>
+		<th>Price</th>
+		<th>Amount</th>
+		<th>Total price</th>
+		<th>Manufacturer</th>
+		</tr></thead><tbody id="ordlinetable"></tbody> </table>`);
+	$('.product-grid').append($table);
+
+  	jQuery.ajax({
+		url: uri+'/order/'+id,
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(line => $('#ordlinetable').append(_makeordline(line)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
+});
+
+$(document).on('click','#manufprod',function(){
+	var $this = $(this);
+	$(".add").html('Add Prdouct');
+	$('.add').attr('id','addProduct'); 
+	$('.add').attr('data-target','#addprodmodal'); 
+	var id = $this.closest('[data-manuf-id]').data('manuf-id');
+	$('.back').attr('id','manufacturers'); 
+	$('.back').removeClass("invisible");
+	$('.add').attr('data-manuf-id',id); 
+    console.log("show products of "+id);
+	clearGrid()
+	jQuery.ajax({
+		url: uri+"/prodmanuf/"+id,
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(product => $('.product-grid').append(_makeProduct(product)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
+});
 let _makebatch= require('./modules/batch-html');
 $(document).on('click','#showinvbatch',function(){
 	var $this = $(this);
@@ -330,6 +420,15 @@ $(document).on('click','#invsupbtn',function(){
 	createAllSupInvoices(id);
 });
 
+$(document).on('click','#custordbtn',function(){
+	var $this = $(this);
+	var id = $this.closest('[data-customer-id]').data('customer-id');
+	$('.back').attr('id','customers'); 
+	$('.back').attr('data-customer-id',id); 
+	$('.back').removeClass("invisible");
+    console.log("show order "+id);
+	createAllCustOrders(id);
+});
 let _makesupinfo= require('./modules/supplier-info-html');
 $(document).on('click','#supinfo',function(){
 	var $this = $(this);
@@ -349,7 +448,44 @@ $(document).on('click','#supinfo',function(){
 	 	},
 	});
 });
-
+let _makecustinfo= require('./modules/customer-info-html');
+$(document).on('click','#custinfo',function(){
+	var $this = $(this);
+	var id = $this.closest('[data-customer-id]').data('customer-id');
+	$('#infoLabel').text("Customer");
+    console.log("show info "+id);
+    jQuery.ajax({
+		url: uri+'/cust/'+id,
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(cust => $('#infobody').append(_makecustinfo(cust)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
+});
+let _makemaninfo= require('./modules/manuf-info-html');
+$(document).on('click','#maninfo',function(){
+	var $this = $(this);
+	var id = $this.closest('[data-manuf-id]').data('manuf-id');
+	$('#infoLabel').text("Manufacturer");
+    console.log("show info "+id);
+    jQuery.ajax({
+		url: uri+'/manuf/'+id,
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(manuf => $('#infobody').append(_makemaninfo(manuf)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
+});
 
 $(document).on('click','#delinvbtn',function(){
 	var $this = $(this);
@@ -369,6 +505,18 @@ $(document).on('click','#delinvbtn',function(){
 	// });
 
 	//createAllProducts();
+});
+
+
+$(document).on('click', '#backtoord',function(){
+	console.log('back order');
+	$('.back').attr('id','customers'); 
+	if($(this).data('customer-id')===""){
+		createAllOrders();
+	}else{
+		//$('.back').attr('id','suppliers'); 
+		createAllCustOrders($(this).data('customer-id'));
+	}
 });
 
 $(document).on('click', '#backtoinv',function(){

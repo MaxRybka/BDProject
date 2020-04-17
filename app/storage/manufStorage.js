@@ -11,7 +11,7 @@ async function getAllManuf() {
 async function getManufById(id) {
     // получение объектов
     const conn = await db.connection();
-    let res = await conn.query(`SELECT man_id, man_name, man_phone FROM manufacturer WHERE man_id= ${id}`);
+    let res = await conn.query(`SELECT man_id, man_name, man_phone, man_country, man_city, man_street, man_building, man_email FROM manufacturer WHERE man_id= ${id}`);
     conn.release();
     return res;
 }

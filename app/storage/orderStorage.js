@@ -86,8 +86,8 @@ async function addNewOrder(data,order_lines_array){
         console.log("Successfully added new order and order_lines. COMMITTED...");
     } catch (e) {
         console.log("Error occured while adding new order.\nROLLBACK...\n: " + e.stack);
-        await connection.rollback();
-        return await connection.release();
+        await conn.rollback();
+        return await conn.release();
     } finally {
         return conn.release();
     }

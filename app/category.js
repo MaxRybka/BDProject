@@ -37,10 +37,13 @@ function initCategory(app, jsonParser) {
 
     app.post('/category', jsonParser, async function(req, res) {
         //TODO - check token + session 
-        let catName = req.body.cat_name;
+        
         let catNotes = (req.body.cat_notes === undefined) ? null : req.body.cat_notes;
+        let category = [req.body.cat_id, req.body.cat_name, req.body.cat_notes];
+        let products = req.body.products;
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        catDao.insertNewCategory(catName, catNotes).then((data) => {
+        
+        catDao.insertNewCategory(category, products).then((data) => {
             res.end();
         }).catch(err => {
             res.write(err.stack);

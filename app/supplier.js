@@ -49,6 +49,20 @@ function initSupplier(app, jsonParser) {
         });
     });
 
+    app.get('/supplike/:id', function(req, res) {
+        //TODO - check token + session 
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+        manufDao.getAllSuppLike(req.params.id).then((data) => {
+                let dataToSend = JSON.stringify(data[0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
+    });
+
     app.post('/supp', jsonParser, async function(req, res) {
         //check token
         let data = [req.body.sup_edrpou, req.body.sup_itn, req.body.sup_name, req.body.sup_phone, req.body.sup_country, req.body.sup_region, req.body.sup_city, req.body.sup_street, req.body.sup_building, req.body.sup_email, req.body.sup_acc];

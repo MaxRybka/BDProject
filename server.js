@@ -11,7 +11,7 @@ let customer = require('./app/customer');
 let order = require('./app/order');
 let manuf = require('./app/manuf');
 let categ = require('./app/category');
-let login = require('./app/login');
+let login = require('./login');
 
 server.listen(8888);
 console.log('Server is running on port 8888');
@@ -33,11 +33,11 @@ login.initLogin(server, jsonParser);
 server.get('/', function(req, res) {
     //TODO - check token + session 
     //res.write("Main page here")
-    if (!req.session.accessToken){
-        console.log("relog");
-        res.redirect('/login');
-    }else{
-        console.log("main");
-        res.sendFile(__dirname + "/docs/index.html");
-    }
+    //if (!req.session.accessToken){
+    //    console.log("relog");
+    //    res.redirect('/login');
+    //}else{
+    console.log("main");
+    res.sendFile(__dirname + "/docs/index.html");
+    //}
 });

@@ -12,6 +12,7 @@
     "mysql2": "^2.1.0",
     "password-hash": "^1.2.2",
     "redis": "^3.0.2",
+    "scss": "^0.2.4",
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {

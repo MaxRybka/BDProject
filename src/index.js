@@ -854,6 +854,41 @@ $(document).on('submit', '#addinvform',function(){
 
 
 });
+$(document).on('submit', '#addordform',function(){
+	console.log('Order post');	
+	var line=[];
+	$('#prodordtable tr').each(function() {
+		var $this = $(this);
+    	let res={
+    		prod_cd:$this.closest('[data-product-id]').data('product-id'),
+    		bat_amount: $this.closest('[data-product-id]').data('amount')	
+    	}; 
+    	line.push(res);  
+    	console.table(res); 
+ 	});
+ 	let result={ord_id: parseInt($("#ordid").val()),
+				ord_date:$("#orddate").val(),
+				ord_notes:$("#ordnotes").val(),
+				cust_edrpou:$("#ordcust").children("option:selected").val(),
+				order_lines:line};
+	console.table(result);
+	$.ajax({
+		type: "POST",
+	    url:uri+"/order",
+	    data: JSON.stringify(result),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: 'json',
+	    success: function(data){
+	    	alert(data);
+	    },complete:function(){
+	    	createAllOrders();
+	    },failure: function(errMsg) {
+        	alert(errMsg);
+    	}
+	});
+
+
+});
 
 
 $(document).on('submit', '#addsupform',function(){
@@ -1050,14 +1085,25 @@ $(document).on('click','#addInvoice',function(){
 
 
 $(document).on('click','#addprodordtable',function(){
-
 	var id=$("#ordprod").children("option:selected").val()
 	jQuery.ajax({
 		url: uri+'/prod/'+id,
 		method: 'get',
  		dataType: 'json',
  		success: function(json){
- 			console.table(json);
+ 			let amount=json.prod_total_am;
+ 			console.log(amount);
+ 			if(amount>=$("#ordamount").val()){
+ 				$('#prodordtable').append(`
+				<tr data-product-id="${$("#ordprod").children("option:selected").val()}"
+				data-amount="${$("#ordamount").val()}" >
+		      <th scope="row" >${$("#ordprod").children("option:selected").text()}</th>
+		      <td>${$("#ordamount").val()}</td>
+			`);
+ 			}else{
+ 				alert("Wrong amount entered");
+ 			}
+		
 		},
 		error: function(xhr){
 			alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -1066,13 +1112,6 @@ $(document).on('click','#addprodordtable',function(){
 
 
 
-
-	$('#prodordtable').append(`
-		<tr data-product-id="${$("#ordprod").children("option:selected").val()}"
-		data-amount="${$("#ordamount").val()}" >
-      <th scope="row" >${$("#ordprod").children("option:selected").text()}</th>
-      <td>${$("#ordamount").val()}</td>
-	`);
 	
 });
 $(document).on('click','#addprodinvtable',function(){

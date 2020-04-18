@@ -46,12 +46,12 @@ function initLogin(server, jsonParser) {
     server.post('/login', jsonParser, function(req, res) {
         var login = req.body.login;
         var password = req.body.password;
-
+        console.log(req.body);
         if (login && password) {
-
             //get user info from db
             userDao.getUserByLogin(login).then((data) => {
                 let userData = data[0][0];
+
                 if (data[0].length > 0 && passwordHash.verify(password, userData.pass)) {
                     //user exists
                     if (!req.session.loggedin) {
@@ -62,7 +62,7 @@ function initLogin(server, jsonParser) {
                     req.session.test_login = login;
                     req.session.role = userData.role;
                     req.session.maxAge = session_duration;
-
+                    res.send({ redirect: "/" });
                     res.end();
                 } else {
                     //throw err
@@ -73,7 +73,7 @@ function initLogin(server, jsonParser) {
                 res.end();
             });
         } else {
-            //Redirect to login + notify
+            res.send({ redirect: "/login", notify: "Incorrect login/password" });
         }
     });
 

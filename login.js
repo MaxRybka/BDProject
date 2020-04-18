@@ -2,14 +2,12 @@ let userDao = require('./app/storage/userStorage');
 
 module.exports = { initLogin }
 
-function initLogin(server, jsonParser) {
+function initLogin(server, jsonParser, config) {
     const passwordHash = require('password-hash');
     const redis = require('redis');
     const session = require('express-session');
     const redisStorage = require('connect-redis')(session);
     const client = redis.createClient();
-    //session duration
-    const session_duration = 10;
 
     server.use(
         session({
@@ -17,7 +15,7 @@ function initLogin(server, jsonParser) {
                 host: '127.0.0.1',
                 port: 6379,
                 client: client,
-                ttl: session_duration
+                ttl: config.session_duration
             }),
             secret: 'secret',
             resave: false,
@@ -79,15 +77,23 @@ function initLogin(server, jsonParser) {
 
     //Admin
     server.get('/admin', function(req, res) {
-        //TODO - check token + session 
+        if (req.session.loggedin) {
+            //extend session
+            req.session.maxAge = config.session_duration;
 
-        res.write("Admin page here")
-        res.end();
-        //res.sendFile(__dirname+"");
+            res.write("Admin page here")
+            res.end();
+            //res.sendFile(__dirname+"");    
+        } else {
+            res.redirect('/login');
+        }
     });
 
     server.post('/user', jsonParser, function(req, res) {
         if (req.session.loggedin && req.session.role === 1) {
+            //extend session
+            req.session.maxAge = config.session_duration;
+
             //add user
             let login = req.body.login;
             let pass = req.body.password;

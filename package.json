@@ -5,9 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "connect-redis": "^4.0.4",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "jquery": "^3.5.0",
     "mysql2": "^2.1.0",
+    "password-hash": "^1.2.2",
+    "redis": "^3.0.2",
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {

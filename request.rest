@@ -63,7 +63,7 @@ POST http://localhost:8888/category
 Content-Type: application/json
 
 {
-   "cat_id" : 4,
+   "cat_id" : 5,
    "cat_name" : "new cat",
    "cat_notes" : "notes",
    "products" : [ 222234, 333112]
@@ -85,4 +85,14 @@ Content-Type: application/json
    "cust_email" : "www.epicentr@g,mail.com", 
    "cust_acc" : "Ua1231231231231231231231231231", 
    "cust_debt" : 30000
+}
+
+###
+
+POST http://localhost:8888/login
+Content-Type: application/json
+
+{
+   "login" : "admin",
+   "password" : "admin"
 }

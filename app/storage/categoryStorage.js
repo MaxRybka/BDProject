@@ -22,11 +22,20 @@ async function insertNewCategory(category, products) {
     const conn = await db.connection();
     try {
         await conn.beginTransaction();
-        await conn.query("INSERT INTO category (cat_id,cat_name, cat_notes) VALUES(?, ?, ?)", category);
+        await conn.query("INSERT INTO category (cat_name, cat_notes) VALUES(?, ?)", category);
 
+        let belongsSql = "INSERT INTO belongs_to (prod_cd, cat_id) VALUES ";
         for (let i = 0; i < products.length; i++) {
-            await conn.query(`INSERT INTO belongs_to (prod_cd, cat_id) VALUES(${products[i]}, ${category[0]})`);
+            belongsSql += (`(${products[i]}, LAST_INSERT_ID())`);
+            if (i != (products.length - 1)) {
+                belongsSql += ', ';
+            }
         }
+        belongsSql += ";";
+
+        console.log(belongsSql);
+
+        await conn.query(belongsSql);
 
         await conn.commit();
 
@@ -38,7 +47,7 @@ async function insertNewCategory(category, products) {
     } finally {
         return conn.release();
     }
-    
+
 }
 
 //cat_notes can be null

@@ -52,7 +52,7 @@ function initSupplier(app, jsonParser) {
     app.get('/supplike/:id', function(req, res) {
         //TODO - check token + session 
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        manufDao.getAllSuppLike(req.params.id).then((data) => {
+        suppDao.getAllSuppLike(req.params.id).then((data) => {
                 let dataToSend = JSON.stringify(data[0]);
                 res.write(dataToSend);
                 res.end();

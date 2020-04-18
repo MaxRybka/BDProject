@@ -29,6 +29,17 @@ async function getProductsByManufId(manId) {
     return res;
 }
 
+async function getProductById(prod_cd) {
+    const conn = await db.connection();
+    const sql = `SELECT prod_name, prod_unit, prod_total_am, prod_notes, man_id ` +
+        `FROM product ` +
+        `WHERE prod_cd = ${prod_cd}`;
+    console.log(sql);
+    let res = await conn.query(sql);
+    conn.release();
+    return res;
+}
+
 async function addNewProduct(prod_cd, dataProduct, dataCategs) {
     let categsSql = "INSERT INTO belongs_to (prod_cd, cat_id) " +
         "VALUES ";
@@ -117,4 +128,4 @@ async function updateProductById(prod_cd, dataProduct, dataCategs) {
 
 }
 
-module.exports = { getAllProducts, getProductsByCategoryId, getProductsByManufId, addNewProduct, updateProductById };
+module.exports = { getAllProducts, getProductsByCategoryId, getProductsByManufId, addNewProduct, updateProductById, getProductById };

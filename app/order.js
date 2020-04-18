@@ -39,12 +39,12 @@ function initOrder(app, jsonParser) {
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
 
         orderDao.addNewOrder(dataOrders, dataOrderLines)
-        .then(() => {
-            res.end();
-        }).catch(err => {
-            res.write(err.stack);
-            res.end();
-        });
+            .then(() => {
+                res.end();
+            }).catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
     });
 
     app.put('/order/:id', jsonParser, async function(req, res) {
@@ -54,15 +54,6 @@ function initOrder(app, jsonParser) {
         //todo - update order
         res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
         res.write('Order has been updated');
-        res.end();
-    });
-
-    app.delete('/order/:id', async function(req, res) {
-        const id = req.params.id;
-        //check token
-        //todo - add new order
-        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('Order has been deleted');
         res.end();
     });
 }

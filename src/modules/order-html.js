@@ -18,7 +18,7 @@ let _makeHtml = ({
 	   	};
       $($product).append(`<td><a href="#" id="custinfo"class="badge badge-light" data-toggle="modal" 
       	data-target="#infomodal">${cust_name}</a></td>
-      		<td> <button type="button" id ="delordbtn" class="btn btn-outline-danger butmar">Delete</button>
+      		<td>
       		<button type="button" id ="showordline" class="btn btn-outline-primary butmar">Show info</button>
       		</td>
     	</tr>`);

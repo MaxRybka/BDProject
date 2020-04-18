@@ -14,11 +14,10 @@ let _makeHtml = ({
 	    $($product).append(`<td class="text-break">${inv_notes}</td>`);
 	   }else{
 	   	$($product).append(`<td>-</td>`);
-
 	   	};
       $($product).append(`<td><a href="#" id="supinfo" class="badge badge-light" data-toggle="modal" 
       	data-target="#infomodal">${sup_name}</a></td>
-      		<td> <button type="button" id ="delinvbtn" class="btn btn-outline-danger butmar">Delete</button>
+      		<td> 
       		<button type="button" id ="showinvbatch" class="btn btn-outline-primary butmar">Show batches</button>
       		</td>
     	</tr>`);

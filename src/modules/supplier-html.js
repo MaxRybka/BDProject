@@ -34,7 +34,8 @@ let _makeHtml = ({
 	   	$($product).append(`<td>-</td>`);
 
 	   	};
-       $($product).append(`<td> <button type="button" id ="delsupbtn" class="btn btn-outline-danger butmar">Delete</button>
+       $($product).append(`<td> <button id="supplike"
+       	type="button" class="btn btn-outline-secondary butmar">Show suppliers that supply all products that supply this supplier</button>
       <button type="button" id ="invsupbtn" class="btn btn-outline-primary butmar">Invoices</button></td>
     </tr>`);
 	return $product;

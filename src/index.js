@@ -130,6 +130,33 @@ function createAllCustOrders(id){
 	});
 }
 
+function createAllCustomers(){
+	clearGrid()
+	$('#categ').attr('disabled','disabled');
+	$(".add").html('Add Customer');
+	$('.add').attr('id','addCustomer'); 
+	$('.add').attr('data-target','#addcustmodal'); 
+	let $table = $(`<table class="table"><thead><tr>
+		<th scope="col">Edrpou</th><th >Itn</th>
+		<th >name</th><th>Phone</th><th>Email</th>
+		<th>Region</th>
+		<th>City</th><th>Street</th><th>Account</th><th>Debt</th>
+		<th>Notes</th></tr></thead><tbody id="custtable">
+		</tbody> </table>`);
+	$('.product-grid').append($table);
+  	jQuery.ajax({
+		url: uri+'/cust',
+		method: 'get',
+	 	dataType: 'json',
+	 	success: function(json){
+			console.table(json);
+	 		json.forEach(customer => $('#custtable').append(_makecustomer(customer)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	 	},
+	});
+}
 
 function createAllOrders(){
 	console.log("orders");
@@ -172,6 +199,10 @@ function createAllOrders(){
 		error: function(xhr){
 			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	 	},
+	});
+
+	$('#addprodmodal').on('hidden.bs.modal', function () {
+		$('#manufs').empty();	
 	});
     $('#infomodal').on('hidden.bs.modal', function () {
     	//$('#infolabel').empty();	
@@ -249,32 +280,9 @@ let _makecustomer= require('./modules/customer-html');
 $(document).on('click','#customers',function(){
 	$('.back').addClass("invisible");
 	$('.back').attr('data-supplier-id',""); 
-	console.log("suppliers");
-	$('#categ').attr('disabled','disabled');
-	clearGrid()
-	$(".add").html('Add Customer');
-	$('.add').attr('id','addCustomer'); 
-	$('.add').attr('data-target','#addcustmodal'); 
-	let $table = $(`<table class="table"><thead><tr>
-		<th scope="col">Edrpou</th><th >Itn</th>
-		<th >name</th><th>Phone</th><th>Email</th>
-		<th>Region</th>
-		<th>City</th><th>Street</th><th>Account</th><th>Debt</th>
-		<th>Notes</th></tr></thead><tbody id="custtable">
-		</tbody> </table>`);
-	$('.product-grid').append($table);
-  	jQuery.ajax({
-	url: uri+'/cust',
-	method: 'get',
- 	dataType: 'json',
- 	success: function(json){
-		console.table(json);
- 		json.forEach(customer => $('#custtable').append(_makecustomer(customer)));
-	},
-	error: function(xhr){
-		alert("An error occured: " + xhr.status + " " + xhr.statusText);
- 	},
-});
+	console.log("Customers");
+	
+	createAllCustomers();
 });
 
 
@@ -531,26 +539,81 @@ $(document).on('click', '#backtoinv',function(){
 });
 
 
+function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
-$(document).on('click','[data-product-id] #delprodbtn',function(){
-	var $this = $(this);
 
-	var article = $this.closest('[data-product-id]').data('product-id');
-    console.log("delete"+article);
- //    $.ajax({
- //    url: url+article,
- //    method: 'delete',
- //    dataType: 'json',
- //    success: function(json){
- //        console.log(json);
- //    },error: function(xhr){
-	// 		alert("An error occured: " + xhr.status + " " + xhr.statusText);
-	//  	},
-	// });
+$(document).on('click','#addcatpost',function(){
+	var res={
+		cat_name:$("#catname").val(),
+		products:$('#catprod').val()
+	}
+	console.log(res);
 
-	//createAllProducts();
+	$('#addprodmodal').modal('show');
+	$('#addcategmodal').modal('hide');
+	
+
 });
 
+
+$(document).on('click','#supppost',function(){
+	var res={
+		sup_edrpou:$("#supedrpou").val(),
+		sup_itn:$("#supitn").val(),
+		sup_name:$("#supname").val(),
+		sup_phone:$("#supphone").val(),
+		sup_email:$("#supemail").val(),
+		sup_country:$("#supcountry").val(),
+		sup_region:$("#supregion").val(),
+		sup_city:$("#supcity").val(),
+		sup_street:$("#supstreet").val(),
+		sup_building:$("#supbuild").val(),
+		sup_acc:$("#supacc").val(),
+		sup_notes:$("#supnotes").val(),
+	}
+	console.log(res);
+});
+
+$(document).on('click','#addcateg',function(){
+	$('#categories-add').empty();
+	
+	jQuery.ajax({
+		url: uri+'/prod',
+		method: 'get',
+ 		dataType: 'json',
+ 		success: function(json){
+ 			console.table(json);
+ 			json.forEach(prod => $('#catprod').append(_makeprodopt(prod)));
+		},
+		error: function(xhr){
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+ 		},
+ 	}).done(function(){
+ 		$('#catprod').multiselect();
+	});
+
+});
+
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
 
 $(document).on('click','[data-product-id] #editprodbtn',function(){
 	var $this = $(this);
@@ -560,7 +623,7 @@ $(document).on('click','[data-product-id] #editprodbtn',function(){
     var amount = $this.closest('[data-product-id]').data('amount');
     var notes = $this.closest('[data-product-id]').data('notes');
 
-	$('#editarticle').val(article);
+	$('#editarticle').text(article);
 	$('#editname').val(name);
 	$('#editamount').val(amount);
 	$('#editunit').val(unit);
@@ -577,10 +640,8 @@ $(document).on('click','[data-product-id] #editprodbtn',function(){
 	//createAllProducts();
 });
 
-$(document).on('click', '#addinvpost',function(){
-	console.log('Invoice post');
-
-	
+$(document).on('submit', '#addinvform',function(){
+	console.log('Invoice post');	
 	var batch=[];
 	$('#prodinvtable tr').each(function() {
 		var $this = $(this);
@@ -612,10 +673,89 @@ $(document).on('click', '#addinvpost',function(){
 	    },failure: function(errMsg) {
         	alert(errMsg);
     	}
+	}).done(function(){
+ 		createAllInvoices();
 	});
+
 
 });
 
+
+$(document).on('submit', '#addsupform',function(){
+	console.log('Supplier post');	
+	let result={	
+		sup_edrpou: $("#supedrpou").val(),
+		sup_itn: $("#supitn").val(),
+		sup_name: $("#supname").val(),
+		sup_phone: $("#supphone").val(),
+		sup_email: $("#supemail").val(),
+		sup_region: $("#supregion").val(),
+		sup_country: $("#supcountry").val(),
+		sup_city: $("#supcity").val(),
+		sup_street: $("#supstreet").val(),
+		sup_building: $("#supbuilding").val(),
+		sup_acc: $("#supacc").val(),
+		sup_notes: $("#supnotes").val()
+	}
+	console.log(result);
+
+	$.ajax({
+		type: "POST",
+	    url:uri+"/supp",
+	    data: JSON.stringify(result),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: 'json',
+	    success: function(data){
+	    	console.log("sardelka")
+	    	alert(data);
+	    },failure: function(errMsg) {
+	    	console.log("sardelka121")
+        	alert(errMsg);
+    	}
+	}).done(function(){
+		console.log("sosiska1")
+ 		createAllSuppliers();
+	});
+	console.log("sosiska")
+	
+
+});
+
+$(document).on('submit', '#addcustform',function(){
+	console.log('Customer post');	
+	let result={	
+		cust_edrpou: $("#custedrpou").val(),
+		cust_itn: $("#custitn").val(),
+		cust_name: $("#custname").val(),
+		cust_phone: $("#custphone").val(),
+		cust_email: $("#custemail").val(),
+		cust_region: $("#custregion").val(),
+		cust_city: $("#custcity").val(),
+		cust_street: $("#custstreet").val(),
+		cust_building: $("#custbuilding").val(),
+		cust_debt: 0,
+		cust_acc: $("#custacc").val(),
+		cust_notes: $("#custnotes").val()
+	}
+
+	$.ajax({
+		type: "POST",
+	    url:uri+"/cust",
+	    data: JSON.stringify(result),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: 'json',
+	    success: function(data){
+	    	alert(data);
+	    },failure: function(errMsg) {
+        	alert(errMsg);
+    	}
+	}).done(function(){
+ 		createAllCustomers();
+	});
+
+	
+
+});
 
 $(document).on('click', '.prodpost',function(){
 	console.log('add post');
@@ -640,6 +780,10 @@ $(document).on('click', '.prodpost',function(){
 	//  	},
 	// });
 	
+});
+$('#myForm').submit(function(e){
+    e.preventDefault();
+   	console.log("check")
 });
 
 let _makemanufopt= require('./modules/manuf-option-html');
@@ -708,11 +852,6 @@ $(document).on('click','#addInvoice',function(){
  	});
 });
 
-
-$(document).on('click','#addSupplier',function(){
-	console.log('add supp');
-	
-});
 $(document).on('click','#addprodinvtable',function(){
 	$('#prodinvtable').append(`
 		<tr data-product-id="${$("#invprod").children("option:selected").val()}"
@@ -741,6 +880,8 @@ $(document).on('click','#addProductInvPost',function(){
 	$('.prodpost').attr('id','addpost'); 
 	createInvProds();
 });
+
+
 
 $('.categories').change(function() {
 	console.log($(this).attr('id'));

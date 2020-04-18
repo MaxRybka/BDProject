@@ -49,10 +49,16 @@ function initProduct(app, jsonParser) {
 
     app.get('/prod/:id', function(req, res) {
         //TODO - check token + session 
-        const myid = req.params.id;
-        console.log('id = ' + myid);
-        res.write("Prod with id = " + myid);
-        res.end();
+        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+        prodDao.getProductById(req.params.id).then((data) => {
+                let dataToSend = JSON.stringify(data[0][0]);
+                res.write(dataToSend);
+                res.end();
+            })
+            .catch(err => {
+                res.write(err.stack);
+                res.end();
+            });
     });
 
     app.post('/prod', jsonParser, async function(req, res) {
@@ -91,12 +97,4 @@ function initProduct(app, jsonParser) {
             });
     });
 
-    app.delete('/prod/:id', async function(req, res) {
-        const id = req.params.id;
-        //check token
-        //todo - add new product
-        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('The product has been deleted');
-        res.end();
-    });
 }

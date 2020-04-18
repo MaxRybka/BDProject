@@ -73,13 +73,4 @@ function initCustomer(app, jsonParser) {
         });
     });
 
-    app.delete('/cust/:id', async function(req, res) {
-        const id = req.params.id;
-        //check token
-        //todo - delete customer by id
-        res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-        res.write('The customer has been deleted');
-        res.end();
-    });
-
 }

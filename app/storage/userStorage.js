@@ -10,4 +10,12 @@ async function getUserByLogin(login){
 }
 
 
-module.exports = { getUserByLogin};
+async function addNewUser(login, pass,role){
+    const conn = await db.connection();
+    let res = conn.query(`INSERT INTO users [login,pass,role]
+                          VALUES ("${login}", "${pass}", ${role})`);
+    conn.release();
+    return res;
+}
+
+module.exports = { getUserByLogin, addNewUser};

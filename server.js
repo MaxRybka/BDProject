@@ -17,17 +17,21 @@ server.listen(8888);
 console.log('Server is running on port 8888');
 server.use(express.static(__dirname));
 
+const config = {     //session duration
+    session_duration : 10
+};
+
 const jsonParser = bodyParser.json();
 
-batch.initBatch(server, jsonParser);
-customer.initCustomer(server, jsonParser);
-invoice.initInvoice(server, jsonParser);
-order.initOrder(server, jsonParser);
-product.initProduct(server, jsonParser);
-supplier.initSupplier(server, jsonParser);
-manuf.initManuf(server, jsonParser);
+batch.initBatch(server, jsonParser, config);
+customer.initCustomer(server, jsonParser, config);
+invoice.initInvoice(server, jsonParser, config);
+order.initOrder(server, jsonParser, config);
+product.initProduct(server, jsonParser, config);
+supplier.initSupplier(server, jsonParser, config);
+manuf.initManuf(server, jsonParser, config);
 categ.initCategory(server, jsonParser);
-login.initLogin(server, jsonParser);
+login.initLogin(server, jsonParser, config);
 
 //ROOT
 server.get('/', function(req, res) {

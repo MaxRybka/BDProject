@@ -20,7 +20,8 @@ function initInvoice(app, jsonParser,config) {
                 res.end();
             });   
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
 
     });
@@ -46,7 +47,8 @@ function initInvoice(app, jsonParser,config) {
 
             //console.log(dataBatches);  
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 

@@ -33,10 +33,13 @@ function initLogin(server, jsonParser, config) {
         }
     });
 
-    server.post('/logout', function(req, res) {
-        req.session.loggedin = false;
-        req.session.maxAge = 0;
-        res.redirect('/login');
+    server.get('/logout', function(req, res) {
+        //req.session.loggedin = false;
+        //req.session.maxAge = 0;
+        //res.redirect('/login');
+        req.session.destroy();
+        res.redirect('/');
+        res.end();
     });
 
     //Login 
@@ -64,7 +67,6 @@ function initLogin(server, jsonParser, config) {
                     res.status(200).write(JSON.stringify({ redirect: '/' }));
                     res.end();
                     
-                    console.log("session created");
                 } else {
                     //throw err
                     console.log("throwing error");
@@ -91,7 +93,8 @@ function initLogin(server, jsonParser, config) {
             res.end();
             //res.sendFile(__dirname+"");    
         } else {
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         }
     });
 
@@ -114,7 +117,8 @@ function initLogin(server, jsonParser, config) {
             });
 
         } else {
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         }
     });
 }

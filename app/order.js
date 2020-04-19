@@ -19,7 +19,8 @@ function initOrder(app, jsonParser,config) {
                     res.end();
                 });    
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 
@@ -39,7 +40,8 @@ function initOrder(app, jsonParser,config) {
                     res.end();
                 });   
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 
@@ -61,7 +63,8 @@ function initOrder(app, jsonParser,config) {
                     res.end();
                 });  
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 
@@ -78,7 +81,8 @@ function initOrder(app, jsonParser,config) {
             res.write('Order has been updated');
             res.end();    
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 }

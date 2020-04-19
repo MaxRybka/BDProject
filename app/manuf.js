@@ -19,7 +19,8 @@ function initManuf(app, jsonParser,config) {
                     res.end();
                 });  
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 
@@ -39,7 +40,8 @@ function initManuf(app, jsonParser,config) {
                     res.end();
                 });
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         }     
     });
 
@@ -64,7 +66,8 @@ function initManuf(app, jsonParser,config) {
                     res.end();
                 });  
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 
@@ -84,7 +87,8 @@ function initManuf(app, jsonParser,config) {
                 res.end();
             });  
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 
@@ -102,7 +106,8 @@ function initManuf(app, jsonParser,config) {
                 res.end();
             }); 
         }else{
-            res.redirect('/login');
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
         } 
     });
 

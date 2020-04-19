@@ -40,15 +40,13 @@ $(document).on('click', '#loginbtn', function() {
         dataType: "json",
         success: function(data, textStatus) {
             console.log("success");
-            if (data.redirect && (data.notify === undefined)) {
+            if (data.redirect) {
                 // data.redirect contains the string URL to redirect to
-                window.location.href = data.redirect;
-            } else {
-                alert(data.notify);
                 window.location.href = data.redirect;
             }
         },
-        failed: function(xhr) {
+        error: function(xhr) {
+            console.log(xhr);
             alert("Incorrect username and/or password. Please, try again.");
         },
     });

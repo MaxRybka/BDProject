@@ -28,8 +28,18 @@ function createAllProducts(){
 		method: 'get',
 	 	dataType: 'json',
 	 	success: function(json){
-			console.table(json);
-	 		json.forEach(product => $('.product-grid').append(_makeProduct(product)));
+			if (json.redirect !== undefined) {
+				// data.redirect contains the string URL to redirect to
+				console.log("redirect");
+				window.location.href = json.redirect;
+            } else {
+				console.log("creating products");
+				//console.table(json);
+				 //json.forEach(prod => $('#catprod').append(_makeprodopt(prod)));
+				console.table(json);
+	 			json.forEach(product => $('.product-grid').append(_makeProduct(product)));
+            }
+			
 		},
 		error: function(xhr){
 			alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -598,7 +608,7 @@ $(document).on('submit','#addprodform',function(){
 	    success: function(data){
 	    	alert(data);
 	    },complete: function (data) {
-	    	createAllProducts();
+			createAllProducts();	    	
      	}
 	    ,failure: function(errMsg) {
         	alert(errMsg);
@@ -669,8 +679,17 @@ $(document).on('click','#addcateg',function(){
 		method: 'get',
  		dataType: 'json',
  		success: function(json){
- 			console.table(json);
- 			json.forEach(prod => $('#catprod').append(_makeprodopt(prod)));
+			// if (data.redirect !== undefined) {
+			// 	// data.redirect contains the string URL to redirect to
+			// 	console.log("redirect");
+			// 	window.location.href = data.redirect;
+            // } else {
+			// 	console.log("creating products");
+			// 	console.table(json);
+ 			// 	json.forEach(prod => $('#catprod').append(_makeprodopt(prod)));
+            // }
+
+			json.forEach(prod => $('#catprod').append(_makeprodopt(prod)));
 		},
 		error: function(xhr){
 			alert("An error occured: " + xhr.status + " " + xhr.statusText);

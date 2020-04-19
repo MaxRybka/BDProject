@@ -59,19 +59,24 @@ function initLogin(server, jsonParser, config) {
                     req.session.loggedin = true;
                     req.session.test_login = login;
                     req.session.role = userData.role;
-                    req.session.maxAge = session_duration;
-                    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
-                    res.redirect("/");
+                    req.session.maxAge = config.session_duration;
+
+                    res.status(200).write(JSON.stringify({ redirect: '/' }));
                     res.end();
+                    
+                    console.log("session created");
                 } else {
                     //throw err
+                    console.log("throwing error");
                     res.status(400).send({ "err": "Incorrect Username and/or Password!" });
+                    res.end();
                 }
             }).catch(err => {
                 res.write(err.stack);
                 res.end();
             });
         } else {
+            console.log("sending error");
             res.send({ redirect: "/login", notify: "Incorrect login/password" });
         }
     });

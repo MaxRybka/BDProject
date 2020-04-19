@@ -39,6 +39,7 @@ $(document).on('click', '#loginbtn', function() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function(data, textStatus) {
+            console.log("success");
             if (data.redirect && (data.notify === undefined)) {
                 // data.redirect contains the string URL to redirect to
                 window.location.href = data.redirect;
@@ -47,7 +48,7 @@ $(document).on('click', '#loginbtn', function() {
                 window.location.href = data.redirect;
             }
         },
-        error: function(xhr) {
+        failed: function(xhr) {
             alert("Incorrect username and/or password. Please, try again.");
         },
     });

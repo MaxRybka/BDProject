@@ -17,11 +17,14 @@ server.listen(8888);
 console.log('Server is running on port 8888');
 server.use(express.static(__dirname));
 
-const config = {     //session duration
-    session_duration : 10
+//Project configuration
+const config = {
+    //session duration
+    session_duration : 100
 };
 
 const jsonParser = bodyParser.json();
+login.initLogin(server, jsonParser, config);
 
 batch.initBatch(server, jsonParser, config);
 customer.initCustomer(server, jsonParser, config);
@@ -30,18 +33,17 @@ order.initOrder(server, jsonParser, config);
 product.initProduct(server, jsonParser, config);
 supplier.initSupplier(server, jsonParser, config);
 manuf.initManuf(server, jsonParser, config);
-categ.initCategory(server, jsonParser);
-login.initLogin(server, jsonParser, config);
+categ.initCategory(server, jsonParser, config);
 
 //ROOT
 server.get('/', function(req, res) {
     //TODO - check token + session 
     //res.write("Main page here")
-    //if (!req.session.accessToken){
-    //    console.log("relog");
-    //    res.redirect('/login');
-    //}else{
-    console.log("main");
-    res.sendFile(__dirname + "/docs/index.html");
-    //}
+    if (!req.session.loggedin){
+       console.log("relog");
+       res.redirect('/login');
+    }else{
+        console.log("main");
+        res.sendFile(__dirname + "/docs/index.html");
+    }
 });

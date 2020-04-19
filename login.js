@@ -29,7 +29,7 @@ function initLogin(server, jsonParser, config) {
             res.sendFile(__dirname + "/docs/login.html");
         } else {
             console.log('already logged in');
-            redirect('/');
+            res.redirect('/');
         }
     });
 
@@ -60,7 +60,8 @@ function initLogin(server, jsonParser, config) {
                     req.session.test_login = login;
                     req.session.role = userData.role;
                     req.session.maxAge = session_duration;
-                    res.send({ redirect: "/" });
+                    res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+                    res.redirect("/");
                     res.end();
                 } else {
                     //throw err

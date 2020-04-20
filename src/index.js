@@ -3,7 +3,7 @@ import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
 let uri = "http://localhost:8888";
-
+import print from 'print-js'
 let _makeProduct = require('./modules/product1-html');
 let _makemanufopt = require('./modules/manuf-option-html');
 let _makeCategory = require('./modules/category-html');
@@ -902,6 +902,77 @@ $(document).on('click', '#editmanuf', function() {
     $('#manufbuildingedit').val(building);
     $('#manufnotesedit').val(notes);
 
+});
+
+
+$(document).on('click', '#printinvbtn', function() {
+	 var $this = $(this);
+    var id = $this.closest('[data-invoice-id]').data('invoice-id');
+    jQuery.ajax({
+        url: uri + '/batchinv/' + id,
+        method: 'get',
+        dataType: 'json',
+        success: function(json) {
+            if (json.redirect !== undefined) {
+                window.location.href = json.redirect;
+            } else {
+                printJS({
+				    printable: json,
+				    properties: [
+						{ field: 'prod_cd', displayName: 'Product  code'},
+						{ field: 'prod_name', displayName: 'Product name'},
+						{ field: 'bat_price', displayName: 'Price'},
+						{ field: 'bat_initamount', displayName: 'Amount'},
+						{ field: 'bat_extra', displayName: 'Extra'},
+						{ field: 'bat_endprice', displayName: 'End price'},
+						{ field: 'bat_lineprice', displayName: 'Total price'}
+				
+				    ],
+				    type: 'json'
+				    , header: '<h3 >Invoice #'+id+'</h3>'
+			        })
+			            }
+        },
+        error: function(xhr) {
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        },
+    });
+
+	
+});
+
+$(document).on('click', '#printordbtn', function() {
+	 var $this = $(this);
+    var id = $this.closest('[data-order-id]').data('order-id');
+    jQuery.ajax({
+        url: uri + '/order/' + id,
+        method: 'get',
+        dataType: 'json',
+        success: function(json) {
+            if (json.redirect !== undefined) {
+                window.location.href = json.redirect;
+            } else {
+                printJS({
+				    printable: json,
+				    properties: [
+						{ field: 'prod_cd', displayName: 'Product  code'},
+						{ field: 'prod_name', displayName: 'Product name'},
+						{ field: 'price', displayName: 'Price'},
+						{ field: 'line_amount', displayName: 'Amount'},						
+						{ field: 'total_price', displayName: 'Total price'}
+				
+				    ],
+				    type: 'json'
+				    , header: '<h3 >Order #'+id+'</h3>'
+			        })
+			            }
+        },
+        error: function(xhr) {
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        },
+    });
+
+	
 });
 
 

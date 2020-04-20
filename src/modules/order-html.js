@@ -20,6 +20,7 @@ let _makeHtml = ({
       	data-target="#infomodal">${cust_name}</a></td>
       		<td>
       		<button type="button" id ="showordline" class="btn btn-outline-primary butmar">Show info</button>
+      		<button id ="printordbtn" type="button" class="btn btn-secondary">Print</button>
       		</td>
     	</tr>`);
 	return $product;

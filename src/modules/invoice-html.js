@@ -19,6 +19,7 @@ let _makeHtml = ({
       	data-target="#infomodal">${sup_name}</a></td>
       		<td> 
       		<button type="button" id ="showinvbatch" class="btn btn-outline-primary butmar">Show batches</button>
+      		<button id ="printinvbtn" type="button" class="btn btn-secondary">Print</button>
       		</td>
     	</tr>`);
 	return $product;

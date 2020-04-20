@@ -1,30 +1,3 @@
-/*$("#loginbtn").click(function() {
-    
-    jQuery.ajax({
-        type: "POST",
-        url: "localhost:8888/prod",
-        data: JSON.stringify({
-            "login": login,
-            "password": password
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        success: function(data) {
-            alert(data);
-        },
-        complete: function(data) {
-            alert("complete")
-        },
-        failure: function(errMsg) {
-            alert(errMsg);
-        }
-    })
-
-    $("#username").val("");
-    $("#pass").val("");
-});*/
-
-
 $(document).on('click', '#loginbtn', function() {
     //import $ from 'jquery';
     //window.jQuery = $;

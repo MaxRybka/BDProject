@@ -1,0 +1,11 @@
+input {
+    min-width: 20em;
+}
+
+.mycont {
+    margin-left: 0;
+}
+
+.container {
+    margin-right: 0;
+}

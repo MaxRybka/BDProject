@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin page</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="docs/js/adminexec.js"></script>
+    <link rel="stylesheet" type="text/css" href="docs/css/admin.css">
+
+</head>
+
+<body onload="loadData();">
+    <div class="container mycont">
+        <div>
+            <form action="/logout" class="form-group">
+                <label class="text-muted col-sm-5">
+                    <h3>Signed in as admin</h3>
+                </label>
+                <button class="btn btn-info col-sm-1">Log out</button>
+            </form>
+        </div>
+    </div>
+    <div class="display-4 text-center">
+        Users
+    </div>
+    <table id='users' class="table table-hover">
+
+    </table>
+    <hr>
+    <div class="container">
+        <form name="addForm" class="form-group">
+            <label>Add new user:</label>
+            <input type="text" id="login" name="login" class="col-2" placeholder="Enter new user's login">
+            <input type="text" id="pass" name="pass" class="col-2" placeholder="Enter new user's password">
+            <button type="submit" class="btn btn-primary col-1 mybutton" id="add-button">Add</button>
+        </form>
+    </div>
+</body>
+
+</html>

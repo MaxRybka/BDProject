@@ -20,7 +20,7 @@ server.use(express.static(__dirname));
 //Project configuration
 const config = {
     //session duration
-    session_duration : 100
+    session_duration: 100
 };
 
 const jsonParser = bodyParser.json();
@@ -37,12 +37,10 @@ categ.initCategory(server, jsonParser, config);
 
 //ROOT
 server.get('/', function(req, res) {
-    //TODO - check token + session 
-    //res.write("Main page here")
-    if (!req.session.loggedin){
-       console.log("relog");
-       res.redirect('/login');
-    }else{
+    if (!req.session.loggedin) {
+        console.log("relogin from main");
+        res.redirect('/login');
+    } else {
         console.log("main");
         res.sendFile(__dirname + "/docs/index.html");
     }

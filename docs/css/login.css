@@ -7,9 +7,10 @@ body {
     background: #FFF;
 }
 
-.btn{
+.btn {
     color: #fff;
 }
+
 .sidenav {
     height: 100%;
     background-color: #000;
@@ -19,6 +20,8 @@ body {
 
 .main {
     padding: 0px 10px;
+    padding-top: 10em;
+    padding-bottom: 10em;
 }
 
 @media screen and (max-height: 450px) {

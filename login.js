@@ -29,16 +29,17 @@ function initLogin(server, jsonParser, config) {
             res.sendFile(__dirname + "/docs/login.html");
         } else {
             console.log('already logged in');
-            res.redirect('/');
+            if (req.session.role == 1) {
+                res.redirect('/admin');
+            } else {
+                res.redirect('/');
+            }
         }
     });
 
     server.get('/logout', function(req, res) {
-        //req.session.loggedin = false;
-        //req.session.maxAge = 0;
-        //res.redirect('/login');
         req.session.destroy();
-        res.redirect('/');
+        res.redirect('/login');
         res.end();
     });
 
@@ -64,9 +65,13 @@ function initLogin(server, jsonParser, config) {
                     req.session.role = userData.role;
                     req.session.maxAge = config.session_duration;
 
-                    res.status(200).write(JSON.stringify({ redirect: '/' }));
-                    res.end();
-                    
+                    if (req.session.role === 1) {
+                        res.status(200).write(JSON.stringify({ redirect: '/admin' }));
+                        res.end();
+                    } else {
+                        res.status(200).write(JSON.stringify({ redirect: '/' }));
+                        res.end();
+                    }
                 } else {
                     //throw err
                     console.log("throwing error");
@@ -89,12 +94,13 @@ function initLogin(server, jsonParser, config) {
             //extend session
             req.session.maxAge = config.session_duration;
 
-            res.write("Admin page here")
-            res.end();
-            //res.sendFile(__dirname+"");    
+            if (req.session.role === 1) {
+                res.sendFile(__dirname + "/docs/admin.html");
+            } else {
+                res.redirect('/logout');
+            }
         } else {
-            res.status(200).write(JSON.stringify({ redirect: '/login' }));
-            res.end();
+            res.redirect('/login');
         }
     });
 
@@ -105,11 +111,28 @@ function initLogin(server, jsonParser, config) {
 
             //add user
             let login = req.body.login;
-            let pass = req.body.password;
-            let role = req.body.role;
+            let pass = passwordHash.generate(req.body.password);
 
-            userDao.addNewUser(login, pass, role).then((data) => {
-                res.writeHead(200, { "Content-type": "text/plain; charset=utf-8" });
+            console.log('Adding ' + login + ' ' + pass);
+            userDao.addNewUser(login, pass).then((data) => {
+                res.status(200).send(data).end();
+            }).catch(err => {
+                res.status(400).send(err.stack).end();
+            });
+
+        } else {
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
+        }
+    });
+
+    server.get('/users', function(req, res) {
+        if (req.session.loggedin && req.session.role === 1) {
+            //extend session
+            req.session.maxAge = config.session_duration;
+
+            userDao.getAllUsers().then((data) => {
+                res.status(200).send(data[0]);
                 res.end();
             }).catch(err => {
                 res.write(err.stack);
@@ -121,4 +144,25 @@ function initLogin(server, jsonParser, config) {
             res.end();
         }
     });
+
+
+    server.delete('/user/:login', function(req, res) {
+        if (req.session.loggedin && req.session.role === 1) {
+            //extend session
+            req.session.maxAge = config.session_duration;
+            const login = req.params.login;
+            console.log('Trying to delete ' + login);
+            userDao.deleteUserByLogin(login).then((data) => {
+                res.status(200).send(data[0]).end();
+            }).catch(err => {
+                res.status(400).send(err.stack).end();
+            });
+
+        } else {
+            res.status(200).write(JSON.stringify({ redirect: '/login' }));
+            res.end();
+        }
+    });
+
+
 }

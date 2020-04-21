@@ -18,7 +18,12 @@ async function getSupplier(id) {
 
 async function getSupplierInvoices(id) {
     const conn = await db.connection();
-    let res = await conn.query(`SELECT inv_id, inv_date, inv_notes, supplier.sup_edrpou, sup_name FROM invoice INNER JOIN supplier ON invoice.sup_edrpou = supplier.sup_edrpou WHERE invoice.sup_edrpou = ${id}`);
+    let res = await conn.query(`SELECT I.inv_id,I.inv_date, I.inv_notes,R.inv_total, S.sup_edrpou, S.sup_name 
+                                FROM invoice I INNER JOIN (SELECT B.inv_id, SUM(B.bat_lineprice) AS inv_total
+                                                        FROM batch B
+                                                        GROUP BY B.inv_id) AS R ON R.inv_id = I.inv_id
+                                            INNER JOIN supplier S ON I.sup_edrpou = S.sup_edrpou
+                                WHERE I.sup_edrpou = ${id};`);
     conn.release();
     return res;
 }

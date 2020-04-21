@@ -38,14 +38,14 @@ async function addNewOrder(data,order_lines_array){
             //get price and amount of product from latest invoice
             do{
                 let res = await conn.query(`SELECT MD.prod_cd, IB.inv_id, bat_amount, bat_endprice
-                                  FROM (SELECT B.prod_cd, Min(I.inv_date) AS min_date 
-                                        FROM invoice AS I INNER JOIN batch AS B ON I.inv_id = B.inv_id 
-                                        WHERE B.bat_amount<>0 
-                                        GROUP BY B.prod_cd) AS MD, 
-                                       (SELECT prod_cd, I1.inv_id, I1.inv_date, bat_amount, bat_endprice 
-                                        FROM batch AS B1 LEFT JOIN invoice AS I1 ON I1.inv_id=B1.inv_id) AS IB
-                                        WHERE MD.min_date = IB.inv_date 
-                                  AND MD.prod_cd = IB.prod_cd AND MD.prod_cd = ${order_lines_array[i].prod_cd};`);
+                                            FROM (SELECT B.prod_cd, Min(I.inv_date) AS min_date 
+                                                    FROM invoice AS I INNER JOIN batch AS B ON I.inv_id = B.inv_id 
+                                                    WHERE B.bat_amount<>0 
+                                                    GROUP BY B.prod_cd) AS MD, 
+                                                (SELECT prod_cd, I1.inv_id, I1.inv_date, bat_amount, bat_endprice 
+                                                    FROM batch AS B1 LEFT JOIN invoice AS I1 ON I1.inv_id=B1.inv_id) AS IB
+                                                    WHERE MD.min_date = IB.inv_date 
+                                            AND MD.prod_cd = IB.prod_cd AND MD.prod_cd = ${order_lines_array[i].prod_cd};`);
                 
                 let results = res[0];
 

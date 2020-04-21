@@ -23,9 +23,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-    	<div class="col-md-4 mt-2 mt-md-0">
+    	<div class="col-md-5 mt-2 mt-md-0 row">
         <button id ="back" type="button" class="back btn btn-secondary invisible" data-supplier-id="" data-invoice-id=""
-        data-customer-id="" data-order-id="">
+        data-customer-id="" data-order-id="" style="   margin-right: 10px;">
         Back
       </button>
     		<button id ="addProduct" type="button" class="add btn btn-primary" data-supplier-id=""
@@ -33,9 +33,11 @@
         data-toggle="modal" data-target="#addprodmodal">
  				Add Product
 			</button>
-      
+       <form action="/logout" style="margin-left: 10px;">
+            <button class="btn btn-info">Log out</button>
+        </form>
     	</div>     
-   			<select id ="categ" class="custom-select categories col-md-4 mt-2 mt-md-0">
+   			<select id ="categ" class="custom-select categories col-md-3 mt-2 mt-md-0">
   			<option selected value="0">All categories</option>
 		</select> 
       <div class="search col-md-4 form-inline mt-2 mt-md-0">
@@ -85,7 +87,7 @@
         </select>
 
         </div>
-          <label for="notes">Notes</label>
+          <label for="notes" >Notes</label>
           <textarea id="notes" class="form-control" aria-label="With textarea" ></textarea>
 
         <div class="text-right">
@@ -188,7 +190,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add supplier</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Supplier</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -310,7 +312,7 @@ aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add invoice</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Ivoice</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -370,7 +372,7 @@ aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add invoice</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -397,7 +399,7 @@ aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add order</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Order</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -575,7 +577,7 @@ aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit product</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

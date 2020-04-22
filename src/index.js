@@ -472,7 +472,7 @@ $(document).on('click', '#showordline', function() {
 
 $(document).on('click', '#manufprod', function() {
     var $this = $(this);
-    $(".add").html('Add Prdouct');
+    $(".add").html('Add Product');
     $('.add').attr('id', 'addProduct');
     $('.add').attr('data-target', '#addprodmodal');
     var id = $this.closest('[data-manuf-id]').data('manuf-id');

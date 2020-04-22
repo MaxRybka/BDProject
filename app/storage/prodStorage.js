@@ -10,10 +10,10 @@ async function getAllProducts() {
 
 async function getProductsByCategoryId(catId) {
     const conn = await db.connection();
-    const sql = "SELECT p.prod_cd, prod_name, prod_unit, prod_total_am, p.prod_notes, p.man_id, m.man_name" +
-        " FROM product p INNER JOIN manufacturer m ON (p.man_id = m.man_id)" +
-        " INNER JOIN belongs_to b ON (p.prod_cd = b.prod_cd)" +
-        " WHERE b.cat_id = ?";
+    const sql = `SELECT p.prod_cd, prod_name, prod_unit, prod_total_am, p.prod_notes, p.man_id, m.man_name
+                 FROM product p INNER JOIN manufacturer m ON (p.man_id = m.man_id)
+                INNER JOIN belongs_to b ON (p.prod_cd = b.prod_cd)
+                WHERE b.cat_id = ?`;
     let res = await conn.query(sql, [catId]);
     conn.release();
     return res;
